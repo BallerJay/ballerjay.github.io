@@ -1,11 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Summer&#39;s Blog</title>
-        <link>https://ballerjay.github.io/</link>
-        <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 19:05:49 &#43;0800</lastBuildDate>
-            <atom:link href="https://ballerjay.github.io/index.xml" rel="self" type="application/rss+xml" />
-        <item>
+        <title>All Posts - Summer&#39;s Blog</title>
+        <link>https://ballerjay.github.io/posts/</link>
+        <description>All Posts | Summer&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 19:05:49 &#43;0800</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Test</title>
     <link>https://ballerjay.github.io/posts/test/</link>
     <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
