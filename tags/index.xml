@@ -3,5 +3,13 @@
         <title>Tags - Tag - Summer&#39;s Blog</title>
         <link>https://ballerjay.github.io/tags/</link>
         <description>Tags - Tag - Summer&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://ballerjay.github.io/tags/" rel="self" type="application/rss+xml" /></channel>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 19:05:49 &#43;0800</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>最长公共前缀</title>
+    <link>https://ballerjay.github.io/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/</link>
+    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
 </rss>
