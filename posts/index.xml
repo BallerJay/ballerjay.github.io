@@ -4,6 +4,16 @@
         <link>https://ballerjay.github.io/posts/</link>
         <description>All Posts | Summer&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 19:05:49 &#43;0800</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>总结 ES2015 的所有新特性</title>
+    <link>https://ballerjay.github.io/posts/es2015/</link>
+    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/posts/es2015/</guid>
+    <description><![CDATA[总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
+let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
+a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数）   函数默认值]]></description>
+</item>
+<item>
     <title>最长公共前缀</title>
     <link>https://ballerjay.github.io/posts/longestcommonprefix/</link>
     <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
@@ -18,16 +28,6 @@
  1 &lt;= strs.length &lt;= 200 0 &lt;= strs[i].length &lt;= 200 strs[i] 仅由小写英文字母组成  解题思路 获取字符串数组中的最长公共前缀，就是取出字符串中的每一个子字符一一进行对比，如果都相同，则比较下一位子字符，否则终止对比。
 具体思路如下：
  let curIndex = 0; 记录当前对比字符的下标 let curStr = &ldquo;&rdquo;; 记录当前比较的字符的值 let flag = true; 判断本次字符串比对是否全部相同 使用while循环，当flag为假时推出循环。 如果当前处理的是字符串数组中的第一个字符串，说明开始了一次新的循环，根据下标curIndex更新curStr。 否则通过curIndex获取当前的字符串和cueStr对比，如果不同，则flag = false推出循环。 如果处理到了字符串数组中的最后一个字符串，则说明本次循环成功，更新下标向后移一位。 当while循环结束时，说明已经获取到了第一个不满足条件的下标位置，根据curIndex截取第一个字符串。  代码实现 function longestComminPrefix(strs) { if(strs.length === 0) return &#34;&#34;; let len = strs.]]></description>
-</item>
-<item>
-    <title></title>
-    <link>https://ballerjay.github.io/posts/es2015/</link>
-    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
-    <author>Summer</author>
-    <guid>https://ballerjay.github.io/posts/es2015/</guid>
-    <description><![CDATA[总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
-let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
-a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数）   函数默认值]]></description>
 </item>
 </channel>
 </rss>

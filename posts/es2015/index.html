@@ -4,38 +4,38 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title> - Summer&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="" />
+        <title>总结 ES2015 的所有新特性 - Summer&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="总结 ES2015 的所有新特性" />
 <meta property="og:description" content="总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
 let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
 a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数）   函数默认值" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ballerjay.github.io/posts/es2015/" /><meta property="og:image" content="https://ballerjay.github.io"/><meta property="article:section" content="posts" />
-
-<meta property="og:site_name" content="My cool site" />
+<meta property="article:published_time" content="2022-05-19T19:05:49+08:00" />
+<meta property="article:modified_time" content="2022-05-19T19:05:49+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://ballerjay.github.io"/>
 
-<meta name="twitter:title" content=""/>
+<meta name="twitter:title" content="总结 ES2015 的所有新特性"/>
 <meta name="twitter:description" content="总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
 let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
 a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数）   函数默认值"/>
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/es2015/" /><link rel="next" href="https://ballerjay.github.io/posts/longestcommonprefix/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/es2015/" /><link rel="prev" href="https://ballerjay.github.io/posts/longestcommonprefix/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "",
+        "headline": "总结 ES2015 的所有新特性",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ballerjay.github.io\/posts\/es2015\/"
-        },"genre": "posts","wordcount":  534 ,
-        "url": "https:\/\/ballerjay.github.io\/posts\/es2015\/","publisher": {
+        },"genre": "posts","keywords": "JavaScript","wordcount":  534 ,
+        "url": "https:\/\/ballerjay.github.io\/posts\/es2015\/","datePublished": "2022-05-19T19:05:49+08:00","dateModified": "2022-05-19T19:05:49+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -89,9 +89,9 @@ a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before in
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;534 words&nbsp;
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">总结 ES2015 的所有新特性</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javascript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaScript</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-19">2022-05-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;534 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -347,25 +347,24 @@ console.log(person) // { myName: &#39;一碗周&#39;, age: 18 }
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 0001-01-01</span>
+                <span>Updated on 2022-05-19</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/es2015/" data-title=""><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/es2015/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/es2015/" data-title=""><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/es2015/" data-title=""><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/es2015/" data-title=""><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/es2015/" data-title="总结 ES2015 的所有新特性" data-hashtags="JavaScript"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/es2015/" data-hashtag="JavaScript"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/es2015/" data-title="总结 ES2015 的所有新特性"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/es2015/" data-title="总结 ES2015 的所有新特性"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/es2015/" data-title="总结 ES2015 的所有新特性"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/javascript/">JavaScript</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
     </div>
 
-    <div class="post-nav">
-            <a href="/posts/longestcommonprefix/" class="next" rel="next" title="最长公共前缀">最长公共前缀<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/posts/longestcommonprefix/" class="prev" rel="prev" title="最长公共前缀"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>最长公共前缀</a></div>
 </div>
 </article></div>
             </main><footer class="footer">
