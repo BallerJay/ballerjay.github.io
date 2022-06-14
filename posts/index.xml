@@ -27,7 +27,7 @@ a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before in
 输入：strs = [&#34;dog&#34;,&#34;racecar&#34;,&#34;car&#34;] 输出：&#34;&#34; 解释：输入不存在公共前缀。 提示：
  1 &lt;= strs.length &lt;= 200 0 &lt;= strs[i].length &lt;= 200 strs[i] 仅由小写英文字母组成  解题思路 获取字符串数组中的最长公共前缀，就是取出字符串中的每一个子字符一一进行对比，如果都相同，则比较下一位子字符，否则终止对比。
 具体思路如下：
- let curIndex = 0; 记录当前对比字符的下标 let curStr = &ldquo;&rdquo;; 记录当前比较的字符的值 let flag = true; 判断本次字符串比对是否全部相同 使用while循环，当flag为假时推出循环。 如果当前处理的是字符串数组中的第一个字符串，说明开始了一次新的循环，根据下标curIndex更新curStr。 否则通过curIndex获取当前的字符串和cueStr对比，如果不同，则flag = false推出循环。 如果处理到了字符串数组中的最后一个字符串，则说明本次循环成功，更新下标向后移一位。 当while循环结束时，说明已经获取到了第一个不满足条件的下标位置，根据curIndex截取第一个字符串。  代码实现 function longestComminPrefix(strs) { if(strs.length === 0) return &#34;&#34;; let len = strs.]]></description>
+ let curIndex = 0; 记录当前对比字符的下标 let curStr = &ldquo;&rdquo;; 记录当前比较的字符的值 let flag = true; 判断本次字符串比对是否全部相同 使用 while 循环，当 flag 为假时推出循环。 如果当前处理的是字符串数组中的第一个字符串，说明开始了一次新的循环，根据下标curIndex更新curStr。 否则通过curIndex获取当前的字符串和cueStr对比，如果不同，则flag = false推出循环。 如果处理到了字符串数组中的最后一个字符串，则说明本次循环成功，更新下标向后移一位。 当 while 循环结束时，说明已经获取到了第一个不满足条件的下标位置，根据curIndex截取第一个字符串。  代码实现 function longestComminPrefix(strs) { if (strs.]]></description>
 </item>
 </channel>
 </rss>
