@@ -4,6 +4,19 @@
         <link>https://ballerjay.github.io/categories/javascript/</link>
         <description>JavaScript - Category - Summer&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 19:05:49 &#43;0800</lastBuildDate><atom:link href="https://ballerjay.github.io/categories/javascript/" rel="self" type="application/rss+xml" /><item>
+    <title>ES2022 都有哪些新特性</title>
+    <link>https://ballerjay.github.io/posts/es2022/</link>
+    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/posts/es2022/</guid>
+    <description><![CDATA[ES2022 有哪些新特性！ 1. Object.hasOwn() 在ES2022之前，可以使用Object.prototype.hasOwnProperty() 来检查一个属性是否属于对象。
+Object.hasOwn特性是一种更简洁、更可靠的检查属性是否直接设置在对象上的方法:
+const example = { property: &#39;123&#39; } console.log(Object.prototype.hasOwnProperty.call(example,&#39;property&#39;)); console.log(Object.hasOwn(example,&#39;property&#39;)) // output: true true 该特性的浏览器支持如下所示：
+2. at() at() 是一个数组方法，用于通过给定索引来获取数组元素。当给定索引为正时，这种新方法与使用括号表示法访问具有相同的行为。当给出负整数索引时，就会从数组的最后一项开始检索：
+const arr = [0,1,2,3,4]; console.log(arr[arr.length - 1]); // 4 console.log(arr.at(-1)); // 4 除了数组，字符串也可以使用at()方法进行索引：
+const str = &#34;hello world&#34;; console.log(str[str.length - 1]); // d console.log(str.at(-1)); // d ]]></description>
+</item>
+<item>
     <title>总结 ES2015 的所有新特性</title>
     <link>https://ballerjay.github.io/posts/es2015/</link>
     <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
