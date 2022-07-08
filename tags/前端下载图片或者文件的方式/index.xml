@@ -3,10 +3,10 @@
         <title>前端下载图片或者文件的方式 - Tag - Summer&#39;s Blog</title>
         <link>https://ballerjay.github.io/tags/%E5%89%8D%E7%AB%AF%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E6%88%96%E8%80%85%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F/</link>
         <description>前端下载图片或者文件的方式 - Tag - Summer&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 19:05:49 &#43;0800</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/%E5%89%8D%E7%AB%AF%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E6%88%96%E8%80%85%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 08 Jul 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/%E5%89%8D%E7%AB%AF%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E6%88%96%E8%80%85%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
     <title>前端下载图片或者文件的方式</title>
     <link>https://ballerjay.github.io/posts/a_tag_download/</link>
-    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
+    <pubDate>Fri, 08 Jul 2022 00:00:00 &#43;0000</pubDate>
     <author>Summer</author>
     <guid>https://ballerjay.github.io/posts/a_tag_download/</guid>
     <description><![CDATA[前端下载资源的方式 目前前端直接下载 web 服务器或者 CDN 静态资源的方式有两种，一个是利用 &lt;a&gt;标签，另一个通过 window.open() 函数。今天重点讲一下 &lt;a&gt; 标签。

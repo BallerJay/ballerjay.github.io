@@ -3,10 +3,10 @@
         <title>ES2022 - Tag - Summer&#39;s Blog</title>
         <link>https://ballerjay.github.io/tags/es2022/</link>
         <description>ES2022 - Tag - Summer&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 19:05:49 &#43;0800</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/es2022/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 25 May 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/es2022/" rel="self" type="application/rss+xml" /><item>
     <title>ES2022 都有哪些新特性</title>
     <link>https://ballerjay.github.io/posts/es2022/</link>
-    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
+    <pubDate>Wed, 25 May 2022 00:00:00 &#43;0000</pubDate>
     <author>Summer</author>
     <guid>https://ballerjay.github.io/posts/es2022/</guid>
     <description><![CDATA[ES2022 有哪些新特性！ 1. Object.hasOwn() 在ES2022之前，可以使用Object.prototype.hasOwnProperty() 来检查一个属性是否属于对象。

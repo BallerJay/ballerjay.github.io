@@ -3,23 +3,10 @@
         <title>All Posts - Summer&#39;s Blog</title>
         <link>https://ballerjay.github.io/posts/</link>
         <description>All Posts | Summer&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 19:05:49 &#43;0800</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>ES2022 都有哪些新特性</title>
-    <link>https://ballerjay.github.io/posts/es2022/</link>
-    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
-    <author>Summer</author>
-    <guid>https://ballerjay.github.io/posts/es2022/</guid>
-    <description><![CDATA[ES2022 有哪些新特性！ 1. Object.hasOwn() 在ES2022之前，可以使用Object.prototype.hasOwnProperty() 来检查一个属性是否属于对象。
-Object.hasOwn特性是一种更简洁、更可靠的检查属性是否直接设置在对象上的方法:
-const example = { property: &#39;123&#39; } console.log(Object.prototype.hasOwnProperty.call(example,&#39;property&#39;)); console.log(Object.hasOwn(example,&#39;property&#39;)) // output: true true 该特性的浏览器支持如下所示：
-2. at() at() 是一个数组方法，用于通过给定索引来获取数组元素。当给定索引为正时，这种新方法与使用括号表示法访问具有相同的行为。当给出负整数索引时，就会从数组的最后一项开始检索：
-const arr = [0,1,2,3,4]; console.log(arr[arr.length - 1]); // 4 console.log(arr.at(-1)); // 4 除了数组，字符串也可以使用at()方法进行索引：
-const str = &#34;hello world&#34;; console.log(str[str.length - 1]); // d console.log(str.at(-1)); // d ]]></description>
-</item>
-<item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 08 Jul 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
     <title>前端下载图片或者文件的方式</title>
     <link>https://ballerjay.github.io/posts/a_tag_download/</link>
-    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
+    <pubDate>Fri, 08 Jul 2022 00:00:00 &#43;0000</pubDate>
     <author>Summer</author>
     <guid>https://ballerjay.github.io/posts/a_tag_download/</guid>
     <description><![CDATA[前端下载资源的方式 目前前端直接下载 web 服务器或者 CDN 静态资源的方式有两种，一个是利用 &lt;a&gt;标签，另一个通过 window.open() 函数。今天重点讲一下 &lt;a&gt; 标签。
@@ -41,7 +28,7 @@ HTML5 给 &lt;a&gt; 标签增加了一个 download 属性，当 &lt;a&gt; 标签
 <item>
     <title>总结 ES2015 的所有新特性</title>
     <link>https://ballerjay.github.io/posts/es2015/</link>
-    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
+    <pubDate>Wed, 15 Jun 2022 00:00:00 &#43;0000</pubDate>
     <author>Summer</author>
     <guid>https://ballerjay.github.io/posts/es2015/</guid>
     <description><![CDATA[总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
@@ -49,9 +36,22 @@ let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to cons
 a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数）   函数默认值]]></description>
 </item>
 <item>
+    <title>ES2022 都有哪些新特性</title>
+    <link>https://ballerjay.github.io/posts/es2022/</link>
+    <pubDate>Wed, 25 May 2022 00:00:00 &#43;0000</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/posts/es2022/</guid>
+    <description><![CDATA[ES2022 有哪些新特性！ 1. Object.hasOwn() 在ES2022之前，可以使用Object.prototype.hasOwnProperty() 来检查一个属性是否属于对象。
+Object.hasOwn特性是一种更简洁、更可靠的检查属性是否直接设置在对象上的方法:
+const example = { property: &#39;123&#39; } console.log(Object.prototype.hasOwnProperty.call(example,&#39;property&#39;)); console.log(Object.hasOwn(example,&#39;property&#39;)) // output: true true 该特性的浏览器支持如下所示：
+2. at() at() 是一个数组方法，用于通过给定索引来获取数组元素。当给定索引为正时，这种新方法与使用括号表示法访问具有相同的行为。当给出负整数索引时，就会从数组的最后一项开始检索：
+const arr = [0,1,2,3,4]; console.log(arr[arr.length - 1]); // 4 console.log(arr.at(-1)); // 4 除了数组，字符串也可以使用at()方法进行索引：
+const str = &#34;hello world&#34;; console.log(str[str.length - 1]); // d console.log(str.at(-1)); // d ]]></description>
+</item>
+<item>
     <title>最长公共前缀</title>
     <link>https://ballerjay.github.io/posts/longestcommonprefix/</link>
-    <pubDate>Thu, 19 May 2022 19:05:49 &#43;0800</pubDate>
+    <pubDate>Thu, 19 May 2022 00:00:00 &#43;0000</pubDate>
     <author>Summer</author>
     <guid>https://ballerjay.github.io/posts/longestcommonprefix/</guid>
     <description><![CDATA[leetcode-14-最长公共前缀 题目地址
