@@ -4,27 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>总结 ES2015 的所有新特性 - Summer&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="总结 ES2015 的所有新特性" />
-<meta property="og:description" content="前端下载资源的方式 目前前端直接下载web服务器或者CDN静态资源的方式有两种，一个是利用 &lt;a&gt;标签，另一个通过 window.open() 函数。今天重点讲一下 &lt;a&gt; 标签。
-&lt;a&gt;标签 标签就是html中的超链接标签，但是用过这个标签的同学应该都有这种印象，当超链接链接的内容是图片、视频或者pdf时，点击超链接往往会在浏览器的新标签页中打开对应的资源，而不是开始下载。但是其他像压缩包这样的资源，也就是浏览器没办法直接打开的资源则会直接开始下载。问题来了，怎么样让所有的文件都 默认下载而不是打开呢？
-HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴上了download属性时，点击超链接则会被浏览器解析为下载而不是打开。
+        <title>前端下载图片或者文件的方式 - Summer&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="前端下载图片或者文件的方式" />
+<meta property="og:description" content="前端下载资源的方式 目前前端直接下载 web 服务器或者 CDN 静态资源的方式有两种，一个是利用 &lt;a&gt;标签，另一个通过 window.open() 函数。今天重点讲一下 &lt;a&gt; 标签。
+&lt;a&gt;标签 标签就是 html 中的超链接标签，但是用过这个标签的同学应该都有这种印象，当超链接链接的内容是图片、视频或者 pdf 时，点击超链接往往会在浏览器的新标签页中打开对应的资源，而不是开始下载。但是其他像压缩包这样的资源，也就是浏览器没办法直接打开的资源则会直接开始下载。问题来了，怎么样让所有的文件都 默认下载而不是打开呢？
+HTML5 给 &lt;a&gt; 标签增加了一个 download 属性，当 &lt;a&gt; 标签戴上了 download 属性时，点击超链接则会被浏览器解析为下载而不是打开。
 下面我们实际操作一下
-一个不带download属性的 &lt;a&gt; 标签案例:
+一个不带 download 属性的 &lt;a&gt; 标签案例:
 浏览器打开之后，点击下载图片查看效果。
 随后浏览器打开了图片，但是并没有下载。
-&lt;a&gt;标签添加download属性后,在试一次
+&lt;a&gt;标签添加 download 属性后,在试一次
 添加 download 属性后，再次点击
 可以看到我们的图片已经下载，达到了我们想要的效果。
 我们把 &lt;img&gt; 和 &lt;a&gt; 标签的路径换成一张网络图片，而非本地的图片。
 点击下载图片，会发现并没有下载，而是在浏览器中打开了图片。
 注意: 如果你的图片渲染不出来，请在标签内加入 &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
 我们开始分析没有下载的原因
-很可能是浏览器的 同源策略 导致download属性失效造成的。同源策略是浏览器的一种安全策略，所谓的同源指的是URL地址里面的协议、域名和端口号均相同，如果一个站点开启了同源策略，也称为禁止跨域访问；这时，这个站点的资源自允许在该站点内部跳转和访问，不允许被第三方站点访问和跳转。我们这个案例中由于源cnblogs的服务器设置了禁止跨域，在我们这个场景下的表现就是不能在非cnblogs站点下直接下载cnblogs文件，所以这里download属性会失效，而失效之后做的仅仅是跳转功能。
-参考文章
-解决方案
-换个推流的方式，也就是用js将资源按照二进制流的方式读取，对二进制流生成一个url，这个url是我们自己站点可访问的url，没有禁止跨域的限制。把url绑定到 &lt;a&gt; 标签的href属性中，因为浏览器无法打开二进制流文件，所以对于这样的资源，浏览器将开始下载而不是在浏览器中的打开资源。
-提示
- 在浏览器渲染html时，点击下载图片后会提示跨域报错的问题，这个可以通过 传送门 暂时屏蔽掉这个问题。  下面是一篇关于谷歌浏览器跨域问题的博客，有时间可以看看：传送门" />
+很可能是浏览器的 同源策略 导致 download 属性失效造成的。同源策略是浏览器的一种安全策略，所谓的同源指的是 URL 地址里面的协议、域名和端口号均相同，如果一个站点开启了同源策略，也称为禁止跨域访问；这时，这个站点的资源自允许在该站点内部跳转和访问，不允许被第三方站点访问和跳转。我们这个案例中由于源 cnblogs 的服务器设置了禁止跨域，在我们这个场景下的表现就是不能在非 cnblogs 站点下直接下载 cnblogs 文件，所以这里 download 属性会失效，而失效之后做的仅仅是跳转功能。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ballerjay.github.io/posts/a_tag_download/" /><meta property="og:image" content="https://ballerjay.github.io"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-19T19:05:49+08:00" />
@@ -33,27 +28,22 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://ballerjay.github.io"/>
 
-<meta name="twitter:title" content="总结 ES2015 的所有新特性"/>
-<meta name="twitter:description" content="前端下载资源的方式 目前前端直接下载web服务器或者CDN静态资源的方式有两种，一个是利用 &lt;a&gt;标签，另一个通过 window.open() 函数。今天重点讲一下 &lt;a&gt; 标签。
-&lt;a&gt;标签 标签就是html中的超链接标签，但是用过这个标签的同学应该都有这种印象，当超链接链接的内容是图片、视频或者pdf时，点击超链接往往会在浏览器的新标签页中打开对应的资源，而不是开始下载。但是其他像压缩包这样的资源，也就是浏览器没办法直接打开的资源则会直接开始下载。问题来了，怎么样让所有的文件都 默认下载而不是打开呢？
-HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴上了download属性时，点击超链接则会被浏览器解析为下载而不是打开。
+<meta name="twitter:title" content="前端下载图片或者文件的方式"/>
+<meta name="twitter:description" content="前端下载资源的方式 目前前端直接下载 web 服务器或者 CDN 静态资源的方式有两种，一个是利用 &lt;a&gt;标签，另一个通过 window.open() 函数。今天重点讲一下 &lt;a&gt; 标签。
+&lt;a&gt;标签 标签就是 html 中的超链接标签，但是用过这个标签的同学应该都有这种印象，当超链接链接的内容是图片、视频或者 pdf 时，点击超链接往往会在浏览器的新标签页中打开对应的资源，而不是开始下载。但是其他像压缩包这样的资源，也就是浏览器没办法直接打开的资源则会直接开始下载。问题来了，怎么样让所有的文件都 默认下载而不是打开呢？
+HTML5 给 &lt;a&gt; 标签增加了一个 download 属性，当 &lt;a&gt; 标签戴上了 download 属性时，点击超链接则会被浏览器解析为下载而不是打开。
 下面我们实际操作一下
-一个不带download属性的 &lt;a&gt; 标签案例:
+一个不带 download 属性的 &lt;a&gt; 标签案例:
 浏览器打开之后，点击下载图片查看效果。
 随后浏览器打开了图片，但是并没有下载。
-&lt;a&gt;标签添加download属性后,在试一次
+&lt;a&gt;标签添加 download 属性后,在试一次
 添加 download 属性后，再次点击
 可以看到我们的图片已经下载，达到了我们想要的效果。
 我们把 &lt;img&gt; 和 &lt;a&gt; 标签的路径换成一张网络图片，而非本地的图片。
 点击下载图片，会发现并没有下载，而是在浏览器中打开了图片。
 注意: 如果你的图片渲染不出来，请在标签内加入 &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
 我们开始分析没有下载的原因
-很可能是浏览器的 同源策略 导致download属性失效造成的。同源策略是浏览器的一种安全策略，所谓的同源指的是URL地址里面的协议、域名和端口号均相同，如果一个站点开启了同源策略，也称为禁止跨域访问；这时，这个站点的资源自允许在该站点内部跳转和访问，不允许被第三方站点访问和跳转。我们这个案例中由于源cnblogs的服务器设置了禁止跨域，在我们这个场景下的表现就是不能在非cnblogs站点下直接下载cnblogs文件，所以这里download属性会失效，而失效之后做的仅仅是跳转功能。
-参考文章
-解决方案
-换个推流的方式，也就是用js将资源按照二进制流的方式读取，对二进制流生成一个url，这个url是我们自己站点可访问的url，没有禁止跨域的限制。把url绑定到 &lt;a&gt; 标签的href属性中，因为浏览器无法打开二进制流文件，所以对于这样的资源，浏览器将开始下载而不是在浏览器中的打开资源。
-提示
- 在浏览器渲染html时，点击下载图片后会提示跨域报错的问题，这个可以通过 传送门 暂时屏蔽掉这个问题。  下面是一篇关于谷歌浏览器跨域问题的博客，有时间可以看看：传送门"/>
+很可能是浏览器的 同源策略 导致 download 属性失效造成的。同源策略是浏览器的一种安全策略，所谓的同源指的是 URL 地址里面的协议、域名和端口号均相同，如果一个站点开启了同源策略，也称为禁止跨域访问；这时，这个站点的资源自允许在该站点内部跳转和访问，不允许被第三方站点访问和跳转。我们这个案例中由于源 cnblogs 的服务器设置了禁止跨域，在我们这个场景下的表现就是不能在非 cnblogs 站点下直接下载 cnblogs 文件，所以这里 download 属性会失效，而失效之后做的仅仅是跳转功能。"/>
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -63,12 +53,12 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "总结 ES2015 的所有新特性",
+        "headline": "前端下载图片或者文件的方式",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ballerjay.github.io\/posts\/a_tag_download\/"
-        },"genre": "posts","keywords": "前端下载图片或者文件的方式","wordcount":  51 ,
+        },"genre": "posts","keywords": "前端下载图片或者文件的方式","wordcount":  92 ,
         "url": "https:\/\/ballerjay.github.io\/posts\/a_tag_download\/","datePublished": "2022-05-19T19:05:49+08:00","dateModified": "2022-05-19T19:05:49+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -123,9 +113,9 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">总结 ES2015 的所有新特性</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">前端下载图片或者文件的方式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javascript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaScript</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-19">2022-05-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;51 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-19">2022-05-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;92 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -142,12 +132,12 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="前端下载资源的方式">前端下载资源的方式</h2>
-<p>目前前端直接下载web服务器或者CDN静态资源的方式有两种，一个是利用 <code>&lt;a&gt;</code>标签，另一个通过 <code>window.open()</code> 函数。今天重点讲一下 <code>&lt;a&gt;</code> 标签。</p>
+<p>目前前端直接下载 web 服务器或者 CDN 静态资源的方式有两种，一个是利用 <code>&lt;a&gt;</code>标签，另一个通过 <code>window.open()</code> 函数。今天重点讲一下 <code>&lt;a&gt;</code> 标签。</p>
 <h3 id="a标签"><code>&lt;a&gt;</code>标签</h3>
-<p><!-- raw HTML omitted --> 标签就是html中的超链接标签，但是用过这个标签的同学应该都有这种印象，当超链接链接的内容是图片、视频或者pdf时，点击超链接往往会在浏览器的新标签页中打开对应的资源，而不是开始下载。但是其他像压缩包这样的资源，也就是浏览器没办法直接打开的资源则会直接开始下载。问题来了，怎么样让所有的文件都 默认下载而不是打开呢？</p>
-<p>HTML5给 <code>&lt;a&gt;</code> 标签增加了一个download属性，当 <code>&lt;a&gt;</code> 标签戴上了download属性时，点击超链接则会被浏览器解析为下载而不是打开。</p>
+<p><!-- raw HTML omitted --> 标签就是 html 中的超链接标签，但是用过这个标签的同学应该都有这种印象，当超链接链接的内容是图片、视频或者 pdf 时，点击超链接往往会在浏览器的新标签页中打开对应的资源，而不是开始下载。但是其他像压缩包这样的资源，也就是浏览器没办法直接打开的资源则会直接开始下载。问题来了，怎么样让所有的文件都 默认下载而不是打开呢？</p>
+<p>HTML5 给 <code>&lt;a&gt;</code> 标签增加了一个 download 属性，当 <code>&lt;a&gt;</code> 标签戴上了 download 属性时，点击超链接则会被浏览器解析为下载而不是打开。</p>
 <p><strong>下面我们实际操作一下</strong></p>
-<p>一个不带download属性的 <code>&lt;a&gt;</code> 标签案例:</p>
+<p>一个不带 download 属性的 <code>&lt;a&gt;</code> 标签案例:</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -174,7 +164,7 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
         data-sizes="auto"
         alt="https://cdn.jsdelivr.net/gh/BallerJay/oss_images@master/blog/2022/07/2022-07-08/image-20220708225620317.png"
         title="image-20220708225620317" /></p>
-<p><code>&lt;a&gt;</code>标签添加download属性后,在试一次</p>
+<p><code>&lt;a&gt;</code>标签添加 download 属性后,在试一次</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -205,7 +195,7 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
 <p>点击下载图片，会发现并没有下载，而是在浏览器中打开了图片。</p>
 <p>注意: 如果你的图片渲染不出来，请在标签内加入 <code>&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;</code></p>
 <p><strong>我们开始分析没有下载的原因</strong></p>
-<p>很可能是浏览器的 <strong>同源策略</strong> 导致download属性失效造成的。同源策略是浏览器的一种安全策略，所谓的同源指的是URL地址里面的协议、域名和端口号均相同，如果一个站点开启了同源策略，也称为禁止跨域访问；这时，这个站点的资源自允许在该站点内部跳转和访问，不允许被第三方站点访问和跳转。我们这个案例中由于源cnblogs的服务器设置了禁止跨域，在我们这个场景下的表现就是不能在非cnblogs站点下直接下载cnblogs文件，所以这里download属性会失效，而失效之后做的仅仅是跳转功能。</p>
+<p>很可能是浏览器的 <strong>同源策略</strong> 导致 download 属性失效造成的。同源策略是浏览器的一种安全策略，所谓的同源指的是 URL 地址里面的协议、域名和端口号均相同，如果一个站点开启了同源策略，也称为禁止跨域访问；这时，这个站点的资源自允许在该站点内部跳转和访问，不允许被第三方站点访问和跳转。我们这个案例中由于源 cnblogs 的服务器设置了禁止跨域，在我们这个场景下的表现就是不能在非 cnblogs 站点下直接下载 cnblogs 文件，所以这里 download 属性会失效，而失效之后做的仅仅是跳转功能。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -216,7 +206,7 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
         title="image-20220708225831096" /></p>
 <p><a href="https://blog.csdn.net/PGguoqi/article/details/106817181" target="_blank" rel="noopener noreffer">参考文章</a></p>
 <p><strong>解决方案</strong></p>
-<p>换个推流的方式，也就是用js将资源按照二进制流的方式读取，对二进制流生成一个url，这个url是我们自己站点可访问的url，没有禁止跨域的限制。把url绑定到 <code>&lt;a&gt;</code> 标签的href属性中，因为浏览器无法打开二进制流文件，所以对于这样的资源，浏览器将开始下载而不是在浏览器中的打开资源。</p>
+<p>换个推流的方式，也就是用 js 将资源按照二进制流的方式读取，对二进制流生成一个 url，这个 url 是我们自己站点可访问的 url，没有禁止跨域的限制。把 url 绑定到 <code>&lt;a&gt;</code> 标签的 href 属性中，因为浏览器无法打开二进制流文件，所以对于这样的资源，浏览器将开始下载而不是在浏览器中的打开资源。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -227,7 +217,7 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
         title="image-20220708225936656" /></p>
 <p><strong>提示</strong></p>
 <ol>
-<li>在浏览器渲染html时，点击下载图片后会提示跨域报错的问题，这个可以通过 <a href="https://jingyan.baidu.com/article/148a1921c9dbf24d71c3b11f.html" target="_blank" rel="noopener noreffer">传送门</a> 暂时屏蔽掉这个问题。</li>
+<li>在浏览器渲染 html 时，点击下载图片后会提示跨域报错的问题，这个可以通过 <a href="https://jingyan.baidu.com/article/148a1921c9dbf24d71c3b11f.html" target="_blank" rel="noopener noreffer">传送门</a> 暂时屏蔽掉这个问题。</li>
 </ol>
 <p><img
         class="lazyload"
@@ -247,7 +237,7 @@ HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-title="总结 ES2015 的所有新特性" data-hashtags="前端下载图片或者文件的方式"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-hashtag="前端下载图片或者文件的方式"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-title="总结 ES2015 的所有新特性"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-title="总结 ES2015 的所有新特性"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-title="总结 ES2015 的所有新特性"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-title="前端下载图片或者文件的方式" data-hashtags="前端下载图片或者文件的方式"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-hashtag="前端下载图片或者文件的方式"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-title="前端下载图片或者文件的方式"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-title="前端下载图片或者文件的方式"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/a_tag_download/" data-title="前端下载图片或者文件的方式"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
