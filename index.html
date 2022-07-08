@@ -93,6 +93,30 @@ const str = &#34;hello world&#34;; console.log(str[str.length - 1]); // d consol
         <a href="/posts/es2022/">Read More</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/es2022/">ES2022</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/a_tag_download/">总结 ES2015 的所有新特性</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-05-19">2022-05-19</time></span>&nbsp;<span class="post-category">included in <a href="/categories/javascript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaScript</a></span></div><div class="content">前端下载资源的方式 目前前端直接下载web服务器或者CDN静态资源的方式有两种，一个是利用 &lt;a&gt;标签，另一个通过 window.open() 函数。今天重点讲一下 &lt;a&gt; 标签。
+&lt;a&gt;标签 标签就是html中的超链接标签，但是用过这个标签的同学应该都有这种印象，当超链接链接的内容是图片、视频或者pdf时，点击超链接往往会在浏览器的新标签页中打开对应的资源，而不是开始下载。但是其他像压缩包这样的资源，也就是浏览器没办法直接打开的资源则会直接开始下载。问题来了，怎么样让所有的文件都 默认下载而不是打开呢？
+HTML5给 &lt;a&gt; 标签增加了一个download属性，当 &lt;a&gt; 标签戴上了download属性时，点击超链接则会被浏览器解析为下载而不是打开。
+下面我们实际操作一下
+一个不带download属性的 &lt;a&gt; 标签案例:
+浏览器打开之后，点击下载图片查看效果。
+随后浏览器打开了图片，但是并没有下载。
+&lt;a&gt;标签添加download属性后,在试一次
+添加 download 属性后，再次点击
+可以看到我们的图片已经下载，达到了我们想要的效果。
+我们把 &lt;img&gt; 和 &lt;a&gt; 标签的路径换成一张网络图片，而非本地的图片。
+点击下载图片，会发现并没有下载，而是在浏览器中打开了图片。
+注意: 如果你的图片渲染不出来，请在标签内加入 &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+我们开始分析没有下载的原因
+很可能是浏览器的 同源策略 导致download属性失效造成的。同源策略是浏览器的一种安全策略，所谓的同源指的是URL地址里面的协议、域名和端口号均相同，如果一个站点开启了同源策略，也称为禁止跨域访问；这时，这个站点的资源自允许在该站点内部跳转和访问，不允许被第三方站点访问和跳转。我们这个案例中由于源cnblogs的服务器设置了禁止跨域，在我们这个场景下的表现就是不能在非cnblogs站点下直接下载cnblogs文件，所以这里download属性会失效，而失效之后做的仅仅是跳转功能。
+参考文章
+解决方案
+换个推流的方式，也就是用js将资源按照二进制流的方式读取，对二进制流生成一个url，这个url是我们自己站点可访问的url，没有禁止跨域的限制。把url绑定到 &lt;a&gt; 标签的href属性中，因为浏览器无法打开二进制流文件，所以对于这样的资源，浏览器将开始下载而不是在浏览器中的打开资源。
+提示
+ 在浏览器渲染html时，点击下载图片后会提示跨域报错的问题，这个可以通过 传送门 暂时屏蔽掉这个问题。  下面是一篇关于谷歌浏览器跨域问题的博客，有时间可以看看：传送门</div><div class="post-footer">
+        <a href="/posts/a_tag_download/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%89%8D%E7%AB%AF%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E6%88%96%E8%80%85%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F/">前端下载图片或者文件的方式</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/es2015/">总结 ES2015 的所有新特性</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-05-19">2022-05-19</time></span>&nbsp;<span class="post-category">included in <a href="/categories/javascript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaScript</a></span></div><div class="content">总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
 let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
