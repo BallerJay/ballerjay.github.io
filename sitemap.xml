@@ -2,11 +2,13 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://ballerjay.github.io/categories/</loc><lastmod>2022-07-08T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://ballerjay.github.io/categories/javascript/</loc><lastmod>2022-07-08T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://ballerjay.github.io/posts/</loc><lastmod>2022-07-08T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://ballerjay.github.io/</loc><lastmod>2022-07-08T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://ballerjay.github.io/tags/</loc><lastmod>2022-07-08T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://ballerjay.github.io/categories/</loc><lastmod>2022-08-06T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://ballerjay.github.io/categories/javascript/</loc><lastmod>2022-08-06T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://ballerjay.github.io/tags/package.json-%E4%B8%8E-package-lock.json-%E7%9A%84%E5%85%B3%E7%B3%BB/</loc><lastmod>2022-08-06T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://ballerjay.github.io/posts/package/</loc><lastmod>2022-08-06T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://ballerjay.github.io/posts/</loc><lastmod>2022-08-06T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://ballerjay.github.io/</loc><lastmod>2022-08-06T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://ballerjay.github.io/tags/</loc><lastmod>2022-08-06T00:00:00&#43;00:00</lastmod></url><url>
             <loc>https://ballerjay.github.io/tags/%E5%89%8D%E7%AB%AF%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E6%88%96%E8%80%85%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F/</loc><lastmod>2022-07-08T00:00:00&#43;00:00</lastmod></url><url>
             <loc>https://ballerjay.github.io/posts/a_tag_download/</loc><lastmod>2022-07-08T00:00:00&#43;00:00</lastmod></url><url>
             <loc>https://ballerjay.github.io/tags/es2015%E6%96%B0%E7%89%B9%E6%80%A7/</loc><lastmod>2022-06-15T00:00:00&#43;00:00</lastmod></url><url>
