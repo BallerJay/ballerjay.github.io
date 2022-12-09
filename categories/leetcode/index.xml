@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>leetCode - Category - Summer&#39;s Blog</title>
+        <title>leetCode - Category - BallerJay&#39;s Blog</title>
         <link>https://ballerjay.github.io/categories/leetcode/</link>
-        <description>leetCode - Category - Summer&#39;s Blog</description>
+        <description>leetCode - Category - BallerJay&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 May 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/categories/leetcode/" rel="self" type="application/rss+xml" /><item>
     <title>最长公共前缀</title>
     <link>https://ballerjay.github.io/posts/longestcommonprefix/</link>

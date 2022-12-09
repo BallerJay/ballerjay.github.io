@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>总结 ES2015 的所有新特性 - Summer&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="总结 ES2015 的所有新特性" />
+        <title>总结 ES2015 的所有新特性 - BallerJay&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="总结 ES2015 的所有新特性" />
 <meta property="og:description" content="总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
 let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
 a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数）   函数默认值" />
@@ -21,9 +21,7 @@ a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before in
 let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
 a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数）   函数默认值"/>
 <meta name="application-name" content="My cool site">
-<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/es2015/" /><link rel="prev" href="https://ballerjay.github.io/posts/es2022/" /><link rel="next" href="https://ballerjay.github.io/posts/a_tag_download/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/es2015/" /><link rel="prev" href="https://ballerjay.github.io/posts/es2022/" /><link rel="next" href="https://ballerjay.github.io/posts/a_tag_download/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -43,19 +41,19 @@ a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before in
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="fixed"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Summer&#39;s Blog"><img
+            <a href="/" title="BallerJay&#39;s Blog"><img
         class="lazyload logo"
         src="/svg/loading.min.svg"
-        data-src="/images/avatar.png"
-        data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
         data-sizes="auto"
-        alt="/images/avatar.png"
-        title="/images/avatar.png" />Summer&#39;s Blog</a>
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />BallerJay&#39;s Blog</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
@@ -68,14 +66,14 @@ a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before in
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Summer&#39;s Blog"><img
+                <a href="/" title="BallerJay&#39;s Blog"><img
         class="lazyload logo"
         src="/svg/loading.min.svg"
-        data-src="/images/avatar.png"
-        data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
         data-sizes="auto"
-        alt="/images/avatar.png"
-        title="/images/avatar.png" />Summer&#39;s Blog</a>
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />BallerJay&#39;s Blog</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>

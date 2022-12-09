@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>ES2022 - Tag - Summer&#39;s Blog</title>
+        <title>ES2022 - Tag - BallerJay&#39;s Blog</title>
         <link>https://ballerjay.github.io/tags/es2022/</link>
-        <description>ES2022 - Tag - Summer&#39;s Blog</description>
+        <description>ES2022 - Tag - BallerJay&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 25 May 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/es2022/" rel="self" type="application/rss+xml" /><item>
     <title>ES2022 都有哪些新特性</title>
     <link>https://ballerjay.github.io/posts/es2022/</link>

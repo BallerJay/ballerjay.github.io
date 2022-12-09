@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>最长公共前缀 - Summer&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="最长公共前缀" />
+        <title>最长公共前缀 - BallerJay&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="最长公共前缀" />
 <meta property="og:description" content="leetcode-14-最长公共前缀 题目地址
 题目描述 编写一个函数来查找字符串数组中过的最长公共前缀。
 如果不存在公共前缀，返回空字符串“”。
@@ -33,9 +33,7 @@
 具体思路如下：
  let curIndex = 0; 记录当前对比字符的下标 let curStr = &ldquo;&rdquo;; 记录当前比较的字符的值 let flag = true; 判断本次字符串比对是否全部相同 使用 while 循环，当 flag 为假时推出循环。 如果当前处理的是字符串数组中的第一个字符串，说明开始了一次新的循环，根据下标curIndex更新curStr。 否则通过curIndex获取当前的字符串和cueStr对比，如果不同，则flag = false推出循环。 如果处理到了字符串数组中的最后一个字符串，则说明本次循环成功，更新下标向后移一位。 当 while 循环结束时，说明已经获取到了第一个不满足条件的下标位置，根据curIndex截取第一个字符串。  代码实现 function longestComminPrefix(strs) { if (strs."/>
 <meta name="application-name" content="My cool site">
-<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/longestcommonprefix/" /><link rel="next" href="https://ballerjay.github.io/posts/es2022/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/longestcommonprefix/" /><link rel="next" href="https://ballerjay.github.io/posts/es2022/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -55,19 +53,19 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="fixed"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Summer&#39;s Blog"><img
+            <a href="/" title="BallerJay&#39;s Blog"><img
         class="lazyload logo"
         src="/svg/loading.min.svg"
-        data-src="/images/avatar.png"
-        data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
         data-sizes="auto"
-        alt="/images/avatar.png"
-        title="/images/avatar.png" />Summer&#39;s Blog</a>
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />BallerJay&#39;s Blog</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
@@ -80,14 +78,14 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Summer&#39;s Blog"><img
+                <a href="/" title="BallerJay&#39;s Blog"><img
         class="lazyload logo"
         src="/svg/loading.min.svg"
-        data-src="/images/avatar.png"
-        data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
         data-sizes="auto"
-        alt="/images/avatar.png"
-        title="/images/avatar.png" />Summer&#39;s Blog</a>
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />BallerJay&#39;s Blog</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>

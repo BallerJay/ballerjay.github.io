@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>All Posts - Summer&#39;s Blog</title>
+        <title>All Posts - BallerJay&#39;s Blog</title>
         <link>https://ballerjay.github.io/posts/</link>
-        <description>All Posts | Summer&#39;s Blog</description>
+        <description>All Posts | BallerJay&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 06 Aug 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
     <title>package.json 与 package-lock.json 的关系</title>
     <link>https://ballerjay.github.io/posts/package/</link>

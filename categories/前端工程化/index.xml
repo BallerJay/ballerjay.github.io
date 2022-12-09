@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>package.json 与 package-lock.json 的关系 - Tag - BallerJay&#39;s Blog</title>
-        <link>https://ballerjay.github.io/tags/package.json-%E4%B8%8E-package-lock.json-%E7%9A%84%E5%85%B3%E7%B3%BB/</link>
-        <description>package.json 与 package-lock.json 的关系 - Tag - BallerJay&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 06 Aug 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/package.json-%E4%B8%8E-package-lock.json-%E7%9A%84%E5%85%B3%E7%B3%BB/" rel="self" type="application/rss+xml" /><item>
+        <title>前端工程化 - Category - BallerJay&#39;s Blog</title>
+        <link>https://ballerjay.github.io/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</link>
+        <description>前端工程化 - Category - BallerJay&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 06 Aug 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="self" type="application/rss+xml" /><item>
     <title>package.json 与 package-lock.json 的关系</title>
     <link>https://ballerjay.github.io/posts/package/</link>
     <pubDate>Sat, 06 Aug 2022 00:00:00 &#43;0000</pubDate>
