@@ -14,7 +14,7 @@
 通过 npm 管理，使用npm init -y就可以自动生成 package.json，安装包依赖关系都由 package.json 来管理。
 语义版本控制 版本号由三部分组成: major.minor.patch，对应的就是 主版本.次版本号.修补版本号。
 例如: 1.2.3，主要版本 1，次要版本 2，补丁 3。
- 补丁中的更改表示不会破坏任何内容的错误修复 次要版本的更改表示不会破坏任何内容的新功能 主要版本的更改表示了一个破坏兼容性的大变化。如果用户不适应主要版本，则内容将无法正常工作。  安装依赖包的版本如何指定 相信大家都会经历过，我们安装一些依赖包的时候，版本号前面都会带^ 或者 ~ 的符号，那么大家有思考过这两个符号代表的是什么吗？
+补丁中的更改表示不会破坏任何内容的错误修复 次要版本的更改表示不会破坏任何内容的新功能 主要版本的更改表示了一个破坏兼容性的大变化。如果用户不适应主要版本，则内容将无法正常工作。 安装依赖包的版本如何指定 相信大家都会经历过，我们安装一些依赖包的时候，版本号前面都会带^ 或者 ~ 的符号，那么大家有思考过这两个符号代表的是什么吗？
 ^ 会匹配最新的大版本依赖包，比如^1.2.3 会匹配所有 1.x.x 的包，包括 1.3.0，但是不包括 2.0.0
 ~ 会匹配最近的小版本依赖包，比如~1.2.3 会匹配所有 1.2.x 的版本，但是不包括 1.3.0
 * 安装最新版本的依赖包,比如*1.2.3 会匹配 x.x.x
@@ -54,7 +54,7 @@ HTML5 给 &lt;a&gt; 标签增加了一个 download 属性，当 &lt;a&gt; 标签
     <guid>https://ballerjay.github.io/posts/es2015/</guid>
     <description><![CDATA[总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
 let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
-a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数）   函数默认值]]></description>
+a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数） 函数默认值]]></description>
 </item>
 <item>
     <title>ES2022 都有哪些新特性</title>
@@ -81,9 +81,9 @@ const str = &#34;hello world&#34;; console.log(str[str.length - 1]); // d consol
 示例 1:
 输入：strs = [&#34;flower&#34;,&#34;flow&#34;,&#34;flight&#34;] 输出：&#34;fl&#34; 示例 2:
 输入：strs = [&#34;dog&#34;,&#34;racecar&#34;,&#34;car&#34;] 输出：&#34;&#34; 解释：输入不存在公共前缀。 提示：
- 1 &lt;= strs.length &lt;= 200 0 &lt;= strs[i].length &lt;= 200 strs[i] 仅由小写英文字母组成  解题思路 获取字符串数组中的最长公共前缀，就是取出字符串中的每一个子字符一一进行对比，如果都相同，则比较下一位子字符，否则终止对比。
+1 &lt;= strs.length &lt;= 200 0 &lt;= strs[i].length &lt;= 200 strs[i] 仅由小写英文字母组成 解题思路 获取字符串数组中的最长公共前缀，就是取出字符串中的每一个子字符一一进行对比，如果都相同，则比较下一位子字符，否则终止对比。
 具体思路如下：
- let curIndex = 0; 记录当前对比字符的下标 let curStr = &ldquo;&rdquo;; 记录当前比较的字符的值 let flag = true; 判断本次字符串比对是否全部相同 使用 while 循环，当 flag 为假时推出循环。 如果当前处理的是字符串数组中的第一个字符串，说明开始了一次新的循环，根据下标curIndex更新curStr。 否则通过curIndex获取当前的字符串和cueStr对比，如果不同，则flag = false推出循环。 如果处理到了字符串数组中的最后一个字符串，则说明本次循环成功，更新下标向后移一位。 当 while 循环结束时，说明已经获取到了第一个不满足条件的下标位置，根据curIndex截取第一个字符串。  代码实现 function longestComminPrefix(strs) { if (strs.]]></description>
+let curIndex = 0; 记录当前对比字符的下标 let curStr = &ldquo;&rdquo;; 记录当前比较的字符的值 let flag = true; 判断本次字符串比对是否全部相同 使用 while 循环，当 flag 为假时推出循环。 如果当前处理的是字符串数组中的第一个字符串，说明开始了一次新的循环，根据下标curIndex更新curStr。 否则通过curIndex获取当前的字符串和cueStr对比，如果不同，则flag = false推出循环。 如果处理到了字符串数组中的最后一个字符串，则说明本次循环成功，更新下标向后移一位。 当 while 循环结束时，说明已经获取到了第一个不满足条件的下标位置，根据curIndex截取第一个字符串。 代码实现 function longestComminPrefix(strs) { if (strs.length === 0) return &#34;&#34;; let len = strs.]]></description>
 </item>
 </channel>
 </rss>
