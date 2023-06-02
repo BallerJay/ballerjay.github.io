@@ -80,9 +80,18 @@
         alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
         title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/BallerJay" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw" aria-hidden="true"></i></a><a href="https://t.me/baller_jay" title="Telegram" target="_blank" rel="noopener noreffer me"><i class="fab fa-telegram-plane fa-fw" aria-hidden="true"></i></a><a href="mailto:i@ballerjay.me" title="Email" rel=" me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/reacthooks/">一次性整明白的 React Hook</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-06-01">2023-06-01</time></span>&nbsp;<span class="post-category">included in <a href="/categories/react/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>React</a></span></div><div class="content">useState useState 可以说是我们日常最常用的 hooks 之一了，在实际使用过程中有一些简单的小技巧能帮助你提升性能 &amp; 减少出 bug 的概率。
+使用惰性初始值官方文档
+通常我们会使用以下的方式初始化 state
+const [count, setCount] = useState(0); 对于简单的初始值，这样做完全没有任何性能问题，但如果初始值是根据复杂计算得出来的，我们这样写就会产生性能问题。
+const initialState = heavyCompute(() =&gt; { /* do some heavy compute here*/ }); const [state, useState] = useState(initialState); 相信你已经发现这里的问题了对于 useState 的初始值，我们只需要计算一次，但是根据 React Function Component 的渲染逻辑，在每一次 render 的时候，都会重新调用该函数，因此 initialState 在每次 render 时都会被重新计算，哪怕它只在第一次渲染的时候被用到，这无疑会造成严重的性能问题，我们可以通过 useState 的惰性初始值来解决这个问题。
+// 这样初始值就只会被计算一次 const [state, setState] = useState(() =&gt; heavyCompute(() =&gt; { /* do some heavy compute here*/ }) ); 不需要把只需要计算一次的东西直接放在函数组件内部顶层的 block 中</div><div class="post-footer">
+        <a href="/posts/reacthooks/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/react-hooks/">React Hooks</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/package/">package.json 与 package-lock.json 的关系</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-08-06">2022-08-06</time></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>前端工程化</a></span></div><div class="content">package.json 和 package-lock.json 之间的关系。
-1. Package.json Package.json 用来描述项目及项目所依赖的模块信息。
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-08-06">2022-08-06</time></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>前端工程化</a></span></div><div class="content">1. Package.json Package.json 用来描述项目及项目所依赖的模块信息。
 通过 npm 管理，使用npm init -y就可以自动生成 package.json，安装包依赖关系都由 package.json 来管理。
 语义版本控制 版本号由三部分组成: major.minor.patch，对应的就是 主版本.次版本号.修补版本号。
 例如: 1.2.3，主要版本 1，次要版本 2，补丁 3。
@@ -94,7 +103,7 @@
 但是需要注意^版本更新可能比较大，会造成项目代码错误 ❌，所以建议使用~ 来标记版本号，这样可以保证项目不会出现大的问题，也能保证包中的小 bug 可以得到修复。
 版本号写*，这意味着安装最新版本的依赖包，但缺点同上，可能会造成版本不兼容，慎用 ⚠️。
 多人开发时依赖包安装的问题 看了上面版本号的指定后，我们可以知道，当我们使用了^和~来控制依赖包版本的时候，多人开发，就有可能存在大家安装的依赖包版本不一样的情况，就会存在项目运行的结果不一样。
-举个例子: 假设我们在项目中安装了 vue，当我们运行npm install vue -save 的时候，在项目中的 package.</div><div class="post-footer">
+举个例子: 假设我们在项目中安装了 vue，当我们运行npm install vue -save 的时候，在项目中的 package.json 的 vue 版本是 vue: ^3.</div><div class="post-footer">
         <a href="/posts/package/">Read More</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/package.json-%E4%B8%8E-package-lock.json-%E7%9A%84%E5%85%B3%E7%B3%BB/">package.json 与 package-lock.json 的关系</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">

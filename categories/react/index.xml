@@ -1,0 +1,20 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>React - Category - BallerJay&#39;s Blog</title>
+        <link>https://ballerjay.github.io/categories/react/</link>
+        <description>React - Category - BallerJay&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 01 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/categories/react/" rel="self" type="application/rss+xml" /><item>
+    <title>一次性整明白的 React Hook</title>
+    <link>https://ballerjay.github.io/posts/reacthooks/</link>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 &#43;0000</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/posts/reacthooks/</guid>
+    <description><![CDATA[useState useState 可以说是我们日常最常用的 hooks 之一了，在实际使用过程中有一些简单的小技巧能帮助你提升性能 &amp; 减少出 bug 的概率。
+使用惰性初始值官方文档
+通常我们会使用以下的方式初始化 state
+const [count, setCount] = useState(0); 对于简单的初始值，这样做完全没有任何性能问题，但如果初始值是根据复杂计算得出来的，我们这样写就会产生性能问题。
+const initialState = heavyCompute(() =&gt; { /* do some heavy compute here*/ }); const [state, useState] = useState(initialState); 相信你已经发现这里的问题了对于 useState 的初始值，我们只需要计算一次，但是根据 React Function Component 的渲染逻辑，在每一次 render 的时候，都会重新调用该函数，因此 initialState 在每次 render 时都会被重新计算，哪怕它只在第一次渲染的时候被用到，这无疑会造成严重的性能问题，我们可以通过 useState 的惰性初始值来解决这个问题。
+// 这样初始值就只会被计算一次 const [state, setState] = useState(() =&gt; heavyCompute(() =&gt; { /* do some heavy compute here*/ }) ); 不需要把只需要计算一次的东西直接放在函数组件内部顶层的 block 中]]></description>
+</item>
+</channel>
+</rss>

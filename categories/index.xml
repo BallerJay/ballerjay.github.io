@@ -3,7 +3,15 @@
         <title>Categories - Category - BallerJay&#39;s Blog</title>
         <link>https://ballerjay.github.io/categories/</link>
         <description>Categories - Category - BallerJay&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 06 Aug 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 01 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>React</title>
+    <link>https://ballerjay.github.io/categories/react/</link>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 &#43;0000</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/categories/react/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>前端工程化</title>
     <link>https://ballerjay.github.io/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</link>
     <pubDate>Sat, 06 Aug 2022 00:00:00 &#43;0000</pubDate>

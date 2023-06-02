@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>一次性整明白的 React Hook - BallerJay&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="一次性整明白的 React Hook" />
+<meta property="og:description" content="useState useState 可以说是我们日常最常用的 hooks 之一了，在实际使用过程中有一些简单的小技巧能帮助你提升性能 &amp; 减少出 bug 的概率。
+使用惰性初始值官方文档
+通常我们会使用以下的方式初始化 state
+const [count, setCount] = useState(0); 对于简单的初始值，这样做完全没有任何性能问题，但如果初始值是根据复杂计算得出来的，我们这样写就会产生性能问题。
+const initialState = heavyCompute(() =&gt; { /* do some heavy compute here*/ }); const [state, useState] = useState(initialState); 相信你已经发现这里的问题了对于 useState 的初始值，我们只需要计算一次，但是根据 React Function Component 的渲染逻辑，在每一次 render 的时候，都会重新调用该函数，因此 initialState 在每次 render 时都会被重新计算，哪怕它只在第一次渲染的时候被用到，这无疑会造成严重的性能问题，我们可以通过 useState 的惰性初始值来解决这个问题。
+// 这样初始值就只会被计算一次 const [state, setState] = useState(() =&gt; heavyCompute(() =&gt; { /* do some heavy compute here*/ }) ); 不需要把只需要计算一次的东西直接放在函数组件内部顶层的 block 中" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ballerjay.github.io/posts/reacthooks/" /><meta property="og:image" content="https://ballerjay.github.io"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-06-01T00:00:00+00:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ballerjay.github.io"/>
+
+<meta name="twitter:title" content="一次性整明白的 React Hook"/>
+<meta name="twitter:description" content="useState useState 可以说是我们日常最常用的 hooks 之一了，在实际使用过程中有一些简单的小技巧能帮助你提升性能 &amp; 减少出 bug 的概率。
+使用惰性初始值官方文档
+通常我们会使用以下的方式初始化 state
+const [count, setCount] = useState(0); 对于简单的初始值，这样做完全没有任何性能问题，但如果初始值是根据复杂计算得出来的，我们这样写就会产生性能问题。
+const initialState = heavyCompute(() =&gt; { /* do some heavy compute here*/ }); const [state, useState] = useState(initialState); 相信你已经发现这里的问题了对于 useState 的初始值，我们只需要计算一次，但是根据 React Function Component 的渲染逻辑，在每一次 render 的时候，都会重新调用该函数，因此 initialState 在每次 render 时都会被重新计算，哪怕它只在第一次渲染的时候被用到，这无疑会造成严重的性能问题，我们可以通过 useState 的惰性初始值来解决这个问题。
+// 这样初始值就只会被计算一次 const [state, setState] = useState(() =&gt; heavyCompute(() =&gt; { /* do some heavy compute here*/ }) ); 不需要把只需要计算一次的东西直接放在函数组件内部顶层的 block 中"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/reacthooks/" /><link rel="prev" href="https://ballerjay.github.io/posts/package/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "一次性整明白的 React Hook",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ballerjay.github.io\/posts\/reacthooks\/"
+        },"genre": "posts","keywords": "React Hooks","wordcount":  194 ,
+        "url": "https:\/\/ballerjay.github.io\/posts\/reacthooks\/","datePublished": "2023-06-01T00:00:00+00:00","dateModified": "2023-06-01T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Summer"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="fixed"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">一次性整明白的 React Hook</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/react/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>React</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-01">2023-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;194 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#usestate">useState</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="usestate">useState</h3>
+<p>useState 可以说是我们日常最常用的 hooks 之一了，在实际使用过程中有一些简单的小技巧能帮助你提升性能 &amp; 减少出 bug 的概率。</p>
+<ul>
+<li>
+<p>使用<code>惰性初始值</code><a href="https://reactjs.org/docs/hooks-reference.html#lazy-initial-state%EF%BC%89" target="_blank" rel="noopener noreffer">官方文档</a></p>
+<p>通常我们会使用以下的方式初始化 state</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span></code></pre></div><p>对于简单的初始值，这样做完全没有任何性能问题，但如果初始值是根据复杂计算得出来的，我们这样写就会产生性能问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="nx">heavyCompute</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* do some heavy compute here*/</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">useState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialState</span><span class="p">);</span>
+</span></span></code></pre></div><p>相信你已经发现这里的问题了对于 useState 的初始值，我们只需要计算一次，但是根据 React Function Component 的渲染逻辑，在每一次 render 的时候，都会重新调用该函数，因此 initialState 在每次 render 时都会被重新计算，哪怕它只在第一次渲染的时候被用到，这无疑会造成严重的性能问题，我们可以通过 useState 的惰性初始值来解决这个问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 这样初始值就只会被计算一次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(()</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">heavyCompute</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* do some heavy compute here*/</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div><p><code>不需要把只需要计算一次的东西直接放在函数组件内部顶层的 block 中</code></p>
+</li>
+<li>
+<p>使用 函数式更新 <a href="https://zh-hans.legacy.reactjs.org/docs/hooks-reference.html#functional-updates" target="_blank" rel="noopener noreffer">官方文档</a></p>
+<p>当我们想要更新 state 的时候，我们通常会这样调用 setState。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">setState</span><span class="p">(</span><span class="nx">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span></code></pre></div><p>看上去没有任何问题，我们看看另一个 case。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Demo</span><span class="o">:</span> <span class="nx">FC</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">setState</span><span class="p">(</span><span class="nx">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">3000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">setState</span><span class="p">(</span><span class="nx">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">state</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>点击 div，我们可以看到计数器增加，那么三秒钟之后，计数器的值会是几呢
+<code>答案是1</code>
+这是一个非常反直觉的结果，原因在于第一次运行函数时，state 的值为 0，而 setTimeout 中的回调函数捕获了第一次运行 Demo 函数时 state 的值，也就是 0，所以 setState(state + 1)执行后 state 的值变成了 1，哪怕当前 state 值已经不是 0 了。
+让我们通过<code>函数式更新</code>修复这个问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Demo</span><span class="o">:</span> <span class="nx">FC</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">setState</span><span class="p">(</span><span class="nx">prev</span> <span class="p">=&gt;</span> <span class="nx">prev</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">3000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">setState</span><span class="p">(</span><span class="nx">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">state</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><code>让我们再运行一次试试，发现三秒后，state 并没有变成 1，而是增加了 1。</code></p>
+<p>直接在 setState 中依赖 state 计算新的 state 在异步执行的函数中会由于 js 闭包捕获得到预期外的结果，此时可以使用 setState(prev =&gt; prev + 1)。</p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/reacthooks/" data-title="一次性整明白的 React Hook" data-hashtags="React Hooks"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/reacthooks/" data-hashtag="React Hooks"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/reacthooks/" data-title="一次性整明白的 React Hook"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/reacthooks/" data-title="一次性整明白的 React Hook"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/reacthooks/" data-title="一次性整明白的 React Hook"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/react-hooks/">React Hooks</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/package/" class="prev" rel="prev" title="package.json 与 package-lock.json 的关系"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>package.json 与 package-lock.json 的关系</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Summer</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

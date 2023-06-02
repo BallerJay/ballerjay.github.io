@@ -5,8 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>package.json 与 package-lock.json 的关系 - BallerJay&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="package.json 与 package-lock.json 的关系" />
-<meta property="og:description" content="package.json 和 package-lock.json 之间的关系。
-1. Package.json Package.json 用来描述项目及项目所依赖的模块信息。
+<meta property="og:description" content="1. Package.json Package.json 用来描述项目及项目所依赖的模块信息。
 通过 npm 管理，使用npm init -y就可以自动生成 package.json，安装包依赖关系都由 package.json 来管理。
 语义版本控制 版本号由三部分组成: major.minor.patch，对应的就是 主版本.次版本号.修补版本号。
 例如: 1.2.3，主要版本 1，次要版本 2，补丁 3。
@@ -18,7 +17,7 @@
 但是需要注意^版本更新可能比较大，会造成项目代码错误 ❌，所以建议使用~ 来标记版本号，这样可以保证项目不会出现大的问题，也能保证包中的小 bug 可以得到修复。
 版本号写*，这意味着安装最新版本的依赖包，但缺点同上，可能会造成版本不兼容，慎用 ⚠️。
 多人开发时依赖包安装的问题 看了上面版本号的指定后，我们可以知道，当我们使用了^和~来控制依赖包版本的时候，多人开发，就有可能存在大家安装的依赖包版本不一样的情况，就会存在项目运行的结果不一样。
-举个例子: 假设我们在项目中安装了 vue，当我们运行npm install vue -save 的时候，在项目中的 package." />
+举个例子: 假设我们在项目中安装了 vue，当我们运行npm install vue -save 的时候，在项目中的 package.json 的 vue 版本是 vue: ^3." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ballerjay.github.io/posts/package/" /><meta property="og:image" content="https://ballerjay.github.io"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-06T00:00:00+00:00" />
@@ -27,8 +26,7 @@
 <meta name="twitter:image" content="https://ballerjay.github.io"/>
 
 <meta name="twitter:title" content="package.json 与 package-lock.json 的关系"/>
-<meta name="twitter:description" content="package.json 和 package-lock.json 之间的关系。
-1. Package.json Package.json 用来描述项目及项目所依赖的模块信息。
+<meta name="twitter:description" content="1. Package.json Package.json 用来描述项目及项目所依赖的模块信息。
 通过 npm 管理，使用npm init -y就可以自动生成 package.json，安装包依赖关系都由 package.json 来管理。
 语义版本控制 版本号由三部分组成: major.minor.patch，对应的就是 主版本.次版本号.修补版本号。
 例如: 1.2.3，主要版本 1，次要版本 2，补丁 3。
@@ -40,9 +38,9 @@
 但是需要注意^版本更新可能比较大，会造成项目代码错误 ❌，所以建议使用~ 来标记版本号，这样可以保证项目不会出现大的问题，也能保证包中的小 bug 可以得到修复。
 版本号写*，这意味着安装最新版本的依赖包，但缺点同上，可能会造成版本不兼容，慎用 ⚠️。
 多人开发时依赖包安装的问题 看了上面版本号的指定后，我们可以知道，当我们使用了^和~来控制依赖包版本的时候，多人开发，就有可能存在大家安装的依赖包版本不一样的情况，就会存在项目运行的结果不一样。
-举个例子: 假设我们在项目中安装了 vue，当我们运行npm install vue -save 的时候，在项目中的 package."/>
+举个例子: 假设我们在项目中安装了 vue，当我们运行npm install vue -save 的时候，在项目中的 package.json 的 vue 版本是 vue: ^3."/>
 <meta name="application-name" content="My cool site">
-<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/package/" /><link rel="prev" href="https://ballerjay.github.io/posts/a_tag_download/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/package/" /><link rel="prev" href="https://ballerjay.github.io/posts/a_tag_download/" /><link rel="next" href="https://ballerjay.github.io/posts/reacthooks/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -53,7 +51,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ballerjay.github.io\/posts\/package\/"
-        },"genre": "posts","keywords": "package.json 与 package-lock.json 的关系","wordcount":  274 ,
+        },"genre": "posts","keywords": "package.json 与 package-lock.json 的关系","wordcount":  270 ,
         "url": "https:\/\/ballerjay.github.io\/posts\/package\/","datePublished": "2022-08-06T00:00:00+00:00","dateModified": "2022-08-06T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -110,7 +108,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">package.json 与 package-lock.json 的关系</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>前端工程化</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-06">2022-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;274 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-06">2022-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;270 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -127,8 +125,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p><code>package.json</code> 和 <code>package-lock.json</code> 之间的关系。</p>
-<h3 id="1-packagejson">1. Package.json</h3>
+            </div><div class="content" id="content"><h3 id="1-packagejson">1. Package.json</h3>
 <p><strong>Package.json 用来描述项目及项目所依赖的模块信息</strong>。</p>
 <p>通过 npm 管理，使用<code>npm init -y</code>就可以自动生成 package.json，安装包依赖关系都由 package.json 来管理。</p>
 <h4 id="语义版本控制">语义版本控制</h4>
@@ -271,7 +268,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/a_tag_download/" class="prev" rel="prev" title="前端下载图片或者文件的方式"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>前端下载图片或者文件的方式</a></div>
+    <div class="post-nav"><a href="/posts/a_tag_download/" class="prev" rel="prev" title="前端下载图片或者文件的方式"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>前端下载图片或者文件的方式</a>
+            <a href="/posts/reacthooks/" class="next" rel="next" title="一次性整明白的 React Hook">一次性整明白的 React Hook<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
