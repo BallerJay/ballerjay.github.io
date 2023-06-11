@@ -3,9 +3,21 @@
         <title>BallerJay&#39;s Blog</title>
         <link>https://ballerjay.github.io/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 01 Jun 2023 00:00:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 11 Jun 2023 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://ballerjay.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Node.js基础(1) - 内置模块</title>
+    <link>https://ballerjay.github.io/posts/nodejs_1/</link>
+    <pubDate>Sun, 11 Jun 2023 00:00:00 &#43;0000</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/posts/nodejs_1/</guid>
+    <description><![CDATA[一、Node.js Node.js 是基于 Chrome V8 引擎的 Javascript 运行环境。可以快速构建网络服务及应用，是用 JavaScript 语言构建的服务平台，可用于后端建立服务器。
+二、Node.js 内置模块 1. fs 文件系统 Node 官方提供的用来操作文件的模块，它提供了一些一系列方法，满足用户对文件的操作需求。 使用之前需要先导入：const fs = require('fs')
+1.1 fs.readFile() 读取指定文件的内容
+fs.readFile(path [, option], callBack) 参数1：必选参数， 字符串， 表示文件路径 参数2：可选参数，表示以什么编码格式读取文件 参数3：必选参数，通过回调函数获得读取结果 # 这里 __dirname 表示的是当前路径 fs.readFile(__dirname + &#34;/1.txt&#34;, &#34;utf8&#34;, function (err, data) { if (err) { return console.log(&#34;读取文件失败&#34;, err.message); } console.log(&#34;读取文件成功&#34;, data); }); 1.2 fs.writeFile() 向指定文件中写入内容
+fs.writeFile(file, data [, option], callBack) 参数1：必选参数，表示文件路径 参数2：必选参数，写入文件的内容 参数3：可选参数，表示以什么编码格式写入文件 参数4：必选参数，通过回调函数获得写入结果 fs.writeFile(__dirname + &#39;/1.txt&#39;, &#39;aabbccdd&#39;, function(err,dataStr){ if(err) { console.]]></description>
+</item>
+<item>
     <title>一次性整明白的 React Hook</title>
     <link>https://ballerjay.github.io/posts/reacthooks/</link>
     <pubDate>Thu, 01 Jun 2023 00:00:00 &#43;0000</pubDate>

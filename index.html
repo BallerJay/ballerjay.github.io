@@ -80,6 +80,15 @@
         alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
         title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/BallerJay" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw" aria-hidden="true"></i></a><a href="https://t.me/baller_jay" title="Telegram" target="_blank" rel="noopener noreffer me"><i class="fab fa-telegram-plane fa-fw" aria-hidden="true"></i></a><a href="mailto:i@ballerjay.me" title="Email" rel=" me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/nodejs_1/">Node.js基础(1) - 内置模块</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-06-11">2023-06-11</time></span>&nbsp;<span class="post-category">included in <a href="/categories/node/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Node</a></span></div><div class="content">一、Node.js Node.js 是基于 Chrome V8 引擎的 Javascript 运行环境。可以快速构建网络服务及应用，是用 JavaScript 语言构建的服务平台，可用于后端建立服务器。
+二、Node.js 内置模块 1. fs 文件系统 Node 官方提供的用来操作文件的模块，它提供了一些一系列方法，满足用户对文件的操作需求。 使用之前需要先导入：const fs = require('fs')
+1.1 fs.readFile() 读取指定文件的内容
+fs.readFile(path [, option], callBack) 参数1：必选参数， 字符串， 表示文件路径 参数2：可选参数，表示以什么编码格式读取文件 参数3：必选参数，通过回调函数获得读取结果 # 这里 __dirname 表示的是当前路径 fs.readFile(__dirname + &#34;/1.txt&#34;, &#34;utf8&#34;, function (err, data) { if (err) { return console.log(&#34;读取文件失败&#34;, err.message); } console.log(&#34;读取文件成功&#34;, data); }); 1.2 fs.writeFile() 向指定文件中写入内容
+fs.writeFile(file, data [, option], callBack) 参数1：必选参数，表示文件路径 参数2：必选参数，写入文件的内容 参数3：可选参数，表示以什么编码格式写入文件 参数4：必选参数，通过回调函数获得写入结果 fs.writeFile(__dirname + &#39;/1.txt&#39;, &#39;aabbccdd&#39;, function(err,dataStr){ if(err) { console.</div><div class="post-footer">
+        <a href="/posts/nodejs_1/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/node.js/">Node.js</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/reacthooks/">一次性整明白的 React Hook</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-06-01">2023-06-01</time></span>&nbsp;<span class="post-category">included in <a href="/categories/react/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>React</a></span></div><div class="content">useState useState 可以说是我们日常最常用的 hooks 之一了，在实际使用过程中有一些简单的小技巧能帮助你提升性能 &amp; 减少出 bug 的概率。
 使用惰性初始值官方文档
@@ -142,20 +151,15 @@ const arr = [0,1,2,3,4]; console.log(arr[arr.length - 1]); // 4 console.log(arr.
 const str = &#34;hello world&#34;; console.log(str[str.length - 1]); // d console.log(str.at(-1)); // d </div><div class="post-footer">
         <a href="/posts/es2022/">Read More</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/es2022/">ES2022</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/longestcommonprefix/">最长公共前缀</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-05-19">2022-05-19</time></span>&nbsp;<span class="post-category">included in <a href="/categories/leetcode/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>leetCode</a></span></div><div class="content">leetcode-14-最长公共前缀 题目地址
-题目描述 编写一个函数来查找字符串数组中过的最长公共前缀。
-如果不存在公共前缀，返回空字符串“”。
-示例 1:
-输入：strs = [&#34;flower&#34;,&#34;flow&#34;,&#34;flight&#34;] 输出：&#34;fl&#34; 示例 2:
-输入：strs = [&#34;dog&#34;,&#34;racecar&#34;,&#34;car&#34;] 输出：&#34;&#34; 解释：输入不存在公共前缀。 提示：
-1 &lt;= strs.length &lt;= 200 0 &lt;= strs[i].length &lt;= 200 strs[i] 仅由小写英文字母组成 解题思路 获取字符串数组中的最长公共前缀，就是取出字符串中的每一个子字符一一进行对比，如果都相同，则比较下一位子字符，否则终止对比。
-具体思路如下：
-let curIndex = 0; 记录当前对比字符的下标 let curStr = &ldquo;&rdquo;; 记录当前比较的字符的值 let flag = true; 判断本次字符串比对是否全部相同 使用 while 循环，当 flag 为假时推出循环。 如果当前处理的是字符串数组中的第一个字符串，说明开始了一次新的循环，根据下标curIndex更新curStr。 否则通过curIndex获取当前的字符串和cueStr对比，如果不同，则flag = false推出循环。 如果处理到了字符串数组中的最后一个字符串，则说明本次循环成功，更新下标向后移一位。 当 while 循环结束时，说明已经获取到了第一个不满足条件的下标位置，根据curIndex截取第一个字符串。 代码实现 function longestComminPrefix(strs) { if (strs.length === 0) return &#34;&#34;; let len = strs.</div><div class="post-footer">
-        <a href="/posts/longestcommonprefix/">Read More</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/">最长公共前缀</a></div></div>
-</article></div></div>
+</article><ul class="pagination"><li class="page-item active">
+                    <span class="page-link">
+                        <a href="/">1</a>
+                    </span>
+                </li><li class="page-item ">
+                    <span class="page-link">
+                        <a href="/page/2/">2</a>
+                    </span>
+                </li></ul></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Summer</a></span></div>

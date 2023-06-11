@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Node.js基础(1) - 内置模块 - BallerJay&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Node.js基础(1) - 内置模块" />
+<meta property="og:description" content="一、Node.js Node.js 是基于 Chrome V8 引擎的 Javascript 运行环境。可以快速构建网络服务及应用，是用 JavaScript 语言构建的服务平台，可用于后端建立服务器。
+二、Node.js 内置模块 1. fs 文件系统 Node 官方提供的用来操作文件的模块，它提供了一些一系列方法，满足用户对文件的操作需求。 使用之前需要先导入：const fs = require(&#39;fs&#39;)
+1.1 fs.readFile() 读取指定文件的内容
+fs.readFile(path [, option], callBack) 参数1：必选参数， 字符串， 表示文件路径 参数2：可选参数，表示以什么编码格式读取文件 参数3：必选参数，通过回调函数获得读取结果 # 这里 __dirname 表示的是当前路径 fs.readFile(__dirname &#43; &#34;/1.txt&#34;, &#34;utf8&#34;, function (err, data) { if (err) { return console.log(&#34;读取文件失败&#34;, err.message); } console.log(&#34;读取文件成功&#34;, data); }); 1.2 fs.writeFile() 向指定文件中写入内容
+fs.writeFile(file, data [, option], callBack) 参数1：必选参数，表示文件路径 参数2：必选参数，写入文件的内容 参数3：可选参数，表示以什么编码格式写入文件 参数4：必选参数，通过回调函数获得写入结果 fs.writeFile(__dirname &#43; &#39;/1.txt&#39;, &#39;aabbccdd&#39;, function(err,dataStr){ if(err) { console." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ballerjay.github.io/posts/nodejs_1/" /><meta property="og:image" content="https://ballerjay.github.io"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-06-11T00:00:00+00:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ballerjay.github.io"/>
+
+<meta name="twitter:title" content="Node.js基础(1) - 内置模块"/>
+<meta name="twitter:description" content="一、Node.js Node.js 是基于 Chrome V8 引擎的 Javascript 运行环境。可以快速构建网络服务及应用，是用 JavaScript 语言构建的服务平台，可用于后端建立服务器。
+二、Node.js 内置模块 1. fs 文件系统 Node 官方提供的用来操作文件的模块，它提供了一些一系列方法，满足用户对文件的操作需求。 使用之前需要先导入：const fs = require(&#39;fs&#39;)
+1.1 fs.readFile() 读取指定文件的内容
+fs.readFile(path [, option], callBack) 参数1：必选参数， 字符串， 表示文件路径 参数2：可选参数，表示以什么编码格式读取文件 参数3：必选参数，通过回调函数获得读取结果 # 这里 __dirname 表示的是当前路径 fs.readFile(__dirname &#43; &#34;/1.txt&#34;, &#34;utf8&#34;, function (err, data) { if (err) { return console.log(&#34;读取文件失败&#34;, err.message); } console.log(&#34;读取文件成功&#34;, data); }); 1.2 fs.writeFile() 向指定文件中写入内容
+fs.writeFile(file, data [, option], callBack) 参数1：必选参数，表示文件路径 参数2：必选参数，写入文件的内容 参数3：可选参数，表示以什么编码格式写入文件 参数4：必选参数，通过回调函数获得写入结果 fs.writeFile(__dirname &#43; &#39;/1.txt&#39;, &#39;aabbccdd&#39;, function(err,dataStr){ if(err) { console."/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/nodejs_1/" /><link rel="prev" href="https://ballerjay.github.io/posts/reacthooks/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Node.js基础(1) - 内置模块",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ballerjay.github.io\/posts\/nodejs_1\/"
+        },"genre": "posts","keywords": "Node.js","wordcount":  470 ,
+        "url": "https:\/\/ballerjay.github.io\/posts\/nodejs_1\/","datePublished": "2023-06-11T00:00:00+00:00","dateModified": "2023-06-11T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Summer"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="fixed"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Node.js基础(1) - 内置模块</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/node/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Node</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-11">2023-06-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;470 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一nodejs">一、Node.js</a></li>
+        <li><a href="#二nodejs-内置模块">二、Node.js 内置模块</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="一nodejs">一、Node.js</h3>
+<p>Node.js 是基于 Chrome V8 引擎的 Javascript 运行环境。可以快速构建网络服务及应用，是用 JavaScript 语言构建的服务平台，可用于后端建立服务器。</p>
+<h3 id="二nodejs-内置模块">二、Node.js 内置模块</h3>
+<h4 id="1-fs-文件系统">1. fs 文件系统</h4>
+<p>Node 官方提供的用来操作文件的模块，它提供了一些一系列方法，满足用户对文件的操作需求。
+使用之前需要先导入：<code>const fs = require('fs')</code></p>
+<p>1.1 fs.readFile() 读取指定文件的内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">path</span> <span class="p">[,</span> <span class="nx">option</span><span class="p">],</span> <span class="nx">callBack</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">参数1</span><span class="err">：</span><span class="nx">必选参数</span><span class="err">，</span> <span class="nx">字符串</span><span class="err">，</span> <span class="nx">表示文件路径</span>
+</span></span><span class="line"><span class="cl"><span class="nx">参数2</span><span class="err">：</span><span class="nx">可选参数</span><span class="err">，</span><span class="nx">表示以什么编码格式读取文件</span>
+</span></span><span class="line"><span class="cl"><span class="nx">参数3</span><span class="err">：</span><span class="nx">必选参数</span><span class="err">，</span><span class="nx">通过回调函数获得读取结果</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">这里</span> <span class="nx">__dirname</span> <span class="nx">表示的是当前路径</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s2">&#34;/1.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;utf8&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;读取文件失败&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;读取文件成功&#34;</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>1.2 fs.writeFile() 向指定文件中写入内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">data</span> <span class="p">[,</span> <span class="nx">option</span><span class="p">],</span> <span class="nx">callBack</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">参数1</span><span class="err">：</span><span class="nx">必选参数</span><span class="err">，</span><span class="nx">表示文件路径</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">参数2</span><span class="err">：</span><span class="nx">必选参数</span><span class="err">，</span><span class="nx">写入文件的内容</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">参数3</span><span class="err">：</span><span class="nx">可选参数</span><span class="err">，</span><span class="nx">表示以什么编码格式写入文件</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">参数4</span><span class="err">：</span><span class="nx">必选参数</span><span class="err">，</span><span class="nx">通过回调函数获得写入结果</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/1.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;aabbccdd&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">dataStr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">     <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;文件写入失败:&#34;</span><span class="p">,</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         <span class="k">return</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;文件写入成功!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">})</span>
+</span></span></code></pre></div><p>注意：fs.writeFile 只可以创建文件，不可以创建文件夹（路径），重复调用 fs.writeFile 写入同一个文件，新写入的内容会覆盖原内容。</p>
+<h4 id="2-path-路径模块">2. path 路径模块</h4>
+<p>Node.js 官方提供的，用来处理路径的模块，它提供了一些方法和属性，满足用户对路径处理的需求。
+使用之前需要先导入：<code>const path = require('path')</code></p>
+<p>2.1 path.join() 多个路径拼接成一个完整的路径</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">([...</span><span class="nx">paths</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nx">不限制参数个数</span><span class="err">，</span><span class="nx">参数为路径的字符串</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">pathStr</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&#34;/a&#34;</span><span class="p">,</span> <span class="s2">&#34;/b/c&#34;</span><span class="p">,</span> <span class="s2">&#34;../&#34;</span><span class="p">,</span> <span class="s2">&#34;/d&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pathStr</span><span class="p">,</span> <span class="s2">&#34;pathStr&#34;</span><span class="p">)</span>  <span class="c1">//  \a\b\d   ../ 会抵消上一层路径
+</span></span></span></code></pre></div><p>2.2 path.basename() 获取路径中的最后一部分，一般用来获取路径中的文件名</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">path</span><span class="p">[,</span> <span class="nx">ext</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nx">path</span><span class="err">，</span><span class="nx">第一个参数</span><span class="err">，</span><span class="nx">必选参数</span><span class="err">，</span><span class="nx">表示一个路径的字符串</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ext</span><span class="err">，</span><span class="nx">第二个参数</span><span class="err">，</span><span class="nx">可选参数</span><span class="err">，</span><span class="nx">表示文件扩展名</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">返回路径的最后一个部分</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fullPath</span> <span class="o">=</span> <span class="s2">&#34;a/b/c/index.html&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fullName</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">fullPath</span><span class="p">)</span>       <span class="c1">// index.html
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">fullPath</span><span class="p">,</span> <span class="s2">&#34;.html&#34;</span><span class="p">)</span>  <span class="c1">// index
+</span></span></span></code></pre></div><p>2.3 path.extname() 获取路径中的扩展部分</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">extName</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="s2">&#34;a/b/c/index.html&#34;</span><span class="p">);</span> <span class="c1">// .html
+</span></span></span></code></pre></div><h4 id="3-http-模块">3. http 模块</h4>
+<p>Node.js 官方提供的、用来创建 web 服务器的模块，通过 http 提供的 http.createServer() 方法就能将一台普通的电脑变成一台 web 服务器。</p>
+<p>3.1 客户端与服务器</p>
+<p><strong>在网络节点中，负责消费资源的站点叫做客户端，负责对外提供网络资源的站点叫做服务器</strong></p>
+<p>普通电脑与服务器的区别在于，服务器电脑上安装了 web 服务器软件，例如：IIS、Apache 等。</p>
+<p>在 Node.js 中，我们不需要安装 IIS、Apache 等第三方服务器软件，我们可以基于 Node 提供 http 模块，通过简单的代码，实现一个服务器软件，从而提供 web 服务。</p>
+<p>3.2 服务器概念</p>
+<p><strong>1. IP 地址</strong></p>
+<p>互联网中每台计算机的唯一标识，具有唯一性，一般使用点分十进制表成(a.b.c.d)的形式，其中 a、b、c、d 都是 0 ～ 255 之间的整数。</p>
+<p><strong>注意</strong> 互联网中的每台 web 服务器都有自己的 IP 地址。在开发期间，我们自己的电脑既是一台服务器，也是一台客户端，为了方便测试，我们可以在浏览器中输入 127.0.0.1，将自己电脑当做服务器进行访问。</p>
+<p><strong>2. 域名和域名服务器</strong></p>
+<p>IP 是一台电脑在互联网中的唯一标识，使用数字来进行区分，不直观，不方便记忆，于是人们发明了另一套字符型的地址方案，即域名地址。</p>
+<p>域名类似于 IP 的别名，辅助我们记忆服务器的地址，IP 与域名是一一对应的关系，这份对应关系存在一个叫域名服务器的电脑中（DNS，Domain Name Server），使用者只需要使用对应的域名即可对其相对应的服务器进行访问，转换工作由域名服务器实现。域名服务器就是提供 IP 和域名进行转化服务的服务器。</p>
+<p><strong>注意：</strong> 单纯使用 IP 地址，电脑也可以正常工作，有了域名的加持，能使互联网世界更加方便。在开发测试期间，127.0.0.1 这个 IP 对应的域名是 localhost，他们都代表我们自己的电脑，在效果上没有任何区别。</p>
+<p><strong>3. 端口号</strong></p>
+<p>计算机中的端口号就像我们生活中的门牌号一样，一台计算机可以运行成千上万的 web 服务，每一个 web 服务都对应的唯一端口号，客户端发送来的网络请求，可以通过端口号准确的交给 web 服务处理。</p>
+<p><strong>注意：</strong> 每个端口号不能同时被多个 web 服务所占用。在实际应用中，url 中的 80 端口可以被忽略。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-11/j9qJIr.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-11/j9qJIr.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-11/j9qJIr.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-11/j9qJIr.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-11/j9qJIr.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-11/j9qJIr.png" /></p>
+<p>3.1 创建基本的 web 服务器</p>
+<ul>
+<li>导入 http 模块</li>
+<li>创建 web 服务器实例</li>
+<li>为服务器实例绑定 request 事件</li>
+<li>启动服务器</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 导入模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建实例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 绑定事件 on 方法，为服务器绑定事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;request&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;some on visit our server&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 启动监听 listen(端口号, cb回调)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;http server is runing at 127.0.0.1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p><strong>req： 请求对象：</strong> 只要服务器接收到了客户端的请求，就会调用 on 方法为服务器绑定 request 事件函数。req 请求对象中保存了客户端请求相关的数据和属性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;request&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// req.url 客户端请求的url
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// req.method 客户端请求的 method 类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`your request url is </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">, request method is </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p><strong>res 响应对象：</strong> 包含了服务器相关的数据和属性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;request&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// req.url 客户端请求的url
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// req.method 客户端请求的 method 类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`your request url is </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">, request method is </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// res.end() 向客户端发送指定的内容， 并结束此次请求过程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p><strong>解决中文乱码问题：</strong> 设置响应头 Content-type 值为: text/html;charset=utf-8</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;request&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// req.url 客户端请求的url
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// req.method 客户端请求的 method 类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`此次请求 url 为 </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">, 请求方法为 </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s2">&#34;Content-type&#34;</span><span class="p">,</span> <span class="s2">&#34;text/html;charset=utf-8&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// res.end() 向客户端发送指定的内容， 并结束此次请求过程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>根据不同的 url 得到不同的内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 创建服务器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 读文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;fs&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 处理路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;path&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;request&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">content</span> <span class="o">=</span> <span class="s2">&#34;404 Not Found&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">url</span> <span class="o">==</span> <span class="s2">&#34;/&#34;</span> <span class="o">||</span> <span class="nx">url</span> <span class="o">==</span> <span class="s2">&#34;/index&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">content</span> <span class="o">=</span> <span class="s2">&#34;&lt;h1&gt;首页&lt;/h1&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">url</span> <span class="o">==</span> <span class="s2">&#34;/about&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">content</span> <span class="o">=</span> <span class="s2">&#34;&lt;h1&gt;关于我们&lt;/h1&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// console.log(content,&#34;content&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s2">&#34;Content-type&#34;</span><span class="p">,</span> <span class="s2">&#34;text/html;charset=utf-8&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;http server is runing at 127.0.0.1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-11</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/nodejs_1/" data-title="Node.js基础(1) - 内置模块" data-hashtags="Node.js"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/nodejs_1/" data-hashtag="Node.js"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/nodejs_1/" data-title="Node.js基础(1) - 内置模块"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/nodejs_1/" data-title="Node.js基础(1) - 内置模块"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/nodejs_1/" data-title="Node.js基础(1) - 内置模块"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/node.js/">Node.js</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/reacthooks/" class="prev" rel="prev" title="一次性整明白的 React Hook"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>一次性整明白的 React Hook</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Summer</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
