@@ -37,7 +37,7 @@ const initialState = heavyCompute(() =&gt; { /* do some heavy compute here*/ });
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ballerjay.github.io\/posts\/reacthooks\/"
-        },"genre": "posts","keywords": "React Hooks","wordcount":  194 ,
+        },"genre": "posts","keywords": "React Hooks","wordcount":  195 ,
         "url": "https:\/\/ballerjay.github.io\/posts\/reacthooks\/","datePublished": "2023-06-01T00:00:00+00:00","dateModified": "2023-06-01T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -94,7 +94,7 @@ const initialState = heavyCompute(() =&gt; { /* do some heavy compute here*/ });
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">一次性整明白的 React Hook</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/react/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>React</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-01">2023-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;194 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-01">2023-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;195 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -159,6 +159,7 @@ const initialState = heavyCompute(() =&gt; { /* do some heavy compute here*/ });
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p><code>让我们再运行一次试试，发现三秒后，state 并没有变成 1，而是增加了 1。</code></p>
 <p>直接在 setState 中依赖 state 计算新的 state 在异步执行的函数中会由于 js 闭包捕获得到预期外的结果，此时可以使用 setState(prev =&gt; prev + 1)。</p>
+<p><a href="https://juejin.cn/post/7200669128289501239" target="_blank" rel="noopener noreffer">参考文章</a></p>
 </li>
 </ul>
 </div><div class="post-footer" id="post-footer">
