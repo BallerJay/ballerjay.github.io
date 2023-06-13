@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Node.js基础(2) - 模块化 - BallerJay&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Node.js基础(2) - 模块化" />
+<meta property="og:description" content="1. 基本概念 模块化是指：在解决复杂问题的时候，自顶向下逐步将系统划分为若干模块的过程，对于整个系统来说，模块是可组合、可分解和可更换的单元。 在编程领域中，一般遵循固定的规则，把一个大文件拆分成独立并且相互依赖的小模块。 提高代码的复用性、可维护性、按需加载。 可以理解为解决复杂问题时的拆分思想。
+1.1 模块分类 根据模块来源不同，可以将 Node.js 分为三类：
+内置模块：Node.js 官方提供的 自定义模块：用户创建的每个 js 文件都是自定义模块 第三方模块：由第三方开发的模块，非官方提供的内置模块，也不是用户自己创建的自定义模块，使用前需要先下载。 1.2 模块加载 任何种类的模块都可以使用require()方法进行加载引用。
+// 内置模块 const fs = require(&#34;fs&#34;); // 自定义模块 const custome = require(&#34;./custome.js&#34;); // 第三方模块 const moment = require(&#34;moment&#34;); 注意：
+在使用 require() 方法加载其他模块时，会执行被加载模块的代码。 在使用 require() 方法用户自定义模块时，可以省略 .js 后缀名。 // custome.js console.log(&#34;custome is require&#34;); // test.js const custome = require(&#34;./custome.js&#34;); console.log(custome); // 输出： // custome is require // {} 1.3 模块作用域 与函数作用域相似，在自定义模块中的变量、方法等成员，只能在当前模块中被访问，这种模块级别的访问限制叫做模块作用域。 好处：防止了全局变量的污染问题。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ballerjay.github.io/posts/nodejs_2/" /><meta property="og:image" content="https://ballerjay.github.io"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-06-12T00:00:00+00:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ballerjay.github.io"/>
+
+<meta name="twitter:title" content="Node.js基础(2) - 模块化"/>
+<meta name="twitter:description" content="1. 基本概念 模块化是指：在解决复杂问题的时候，自顶向下逐步将系统划分为若干模块的过程，对于整个系统来说，模块是可组合、可分解和可更换的单元。 在编程领域中，一般遵循固定的规则，把一个大文件拆分成独立并且相互依赖的小模块。 提高代码的复用性、可维护性、按需加载。 可以理解为解决复杂问题时的拆分思想。
+1.1 模块分类 根据模块来源不同，可以将 Node.js 分为三类：
+内置模块：Node.js 官方提供的 自定义模块：用户创建的每个 js 文件都是自定义模块 第三方模块：由第三方开发的模块，非官方提供的内置模块，也不是用户自己创建的自定义模块，使用前需要先下载。 1.2 模块加载 任何种类的模块都可以使用require()方法进行加载引用。
+// 内置模块 const fs = require(&#34;fs&#34;); // 自定义模块 const custome = require(&#34;./custome.js&#34;); // 第三方模块 const moment = require(&#34;moment&#34;); 注意：
+在使用 require() 方法加载其他模块时，会执行被加载模块的代码。 在使用 require() 方法用户自定义模块时，可以省略 .js 后缀名。 // custome.js console.log(&#34;custome is require&#34;); // test.js const custome = require(&#34;./custome.js&#34;); console.log(custome); // 输出： // custome is require // {} 1.3 模块作用域 与函数作用域相似，在自定义模块中的变量、方法等成员，只能在当前模块中被访问，这种模块级别的访问限制叫做模块作用域。 好处：防止了全局变量的污染问题。"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/nodejs_2/" /><link rel="prev" href="https://ballerjay.github.io/posts/nodejs_1/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Node.js基础(2) - 模块化",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ballerjay.github.io\/posts\/nodejs_2\/"
+        },"genre": "posts","keywords": "Node.js","wordcount":  365 ,
+        "url": "https:\/\/ballerjay.github.io\/posts\/nodejs_2\/","datePublished": "2023-06-12T00:00:00+00:00","dateModified": "2023-06-12T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Summer"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="fixed"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Node.js基础(2) - 模块化</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/node/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Node</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-12">2023-06-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;365 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-基本概念">1. 基本概念</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="1-基本概念">1. 基本概念</h3>
+<p>模块化是指：在解决复杂问题的时候，自顶向下逐步将系统划分为若干模块的过程，对于整个系统来说，模块是可组合、可分解和可更换的单元。
+在编程领域中，一般遵循固定的规则，把一个大文件拆分成独立并且相互依赖的小模块。
+提高代码的复用性、可维护性、按需加载。
+可以理解为解决复杂问题时的拆分思想。</p>
+<h4 id="11-模块分类">1.1 模块分类</h4>
+<p>根据模块来源不同，可以将 Node.js 分为三类：</p>
+<ul>
+<li>内置模块：Node.js 官方提供的</li>
+<li>自定义模块：用户创建的每个 js 文件都是自定义模块</li>
+<li>第三方模块：由第三方开发的模块，非官方提供的内置模块，也不是用户自己创建的自定义模块，使用前需要先下载。</li>
+</ul>
+<h4 id="12-模块加载">1.2 模块加载</h4>
+<p>任何种类的模块都可以使用<code>require()</code>方法进行加载引用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 内置模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;fs&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 自定义模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">custome</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./custome.js&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 第三方模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">moment</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;moment&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><p>注意：</p>
+<ul>
+<li>在使用 require() 方法加载其他模块时，会执行被加载模块的代码。</li>
+<li>在使用 require() 方法用户自定义模块时，可以省略 .js 后缀名。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// custome.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;custome is require&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">custome</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./custome.js&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">custome</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//  输出：
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  custome is require
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  {}
+</span></span></span></code></pre></div><h4 id="13-模块作用域">1.3 模块作用域</h4>
+<p>与函数作用域相似，在自定义模块中的变量、方法等成员，只能在当前模块中被访问，这种模块级别的访问限制叫做模块作用域。
+好处：防止了全局变量的污染问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// custome.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">userName</span> <span class="o">=</span> <span class="s2">&#34;kelly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">sayHello</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Hello, my name is&#34;</span> <span class="o">+</span> <span class="nx">userName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">custome</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./custome&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">custome</span><span class="p">);</span> <span class="c1">// {}
+</span></span></span></code></pre></div><h4 id="14-模块作用域成员共享">1.4 模块作用域成员共享</h4>
+<p>module 对象：每个 js 自定义模块，都有一个 module 对象，里面存储了和当前模块有关的信息。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-12/xSErlE.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-12/xSErlE.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-12/xSErlE.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-12/xSErlE.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-12/xSErlE.png"
+        title="img" /></p>
+<p>module.exports 对象可以将模块内的成员共享出去，供外部使用，在使用 require() 方法导入自定义模块时，得到的就是 module.exports 所指向的对象。
+在自定义模块中,module.exports 默认指向空对象。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// custome.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">userName</span> <span class="o">=</span> <span class="s2">&#34;kelly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">sayHello</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">custome</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./custome&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">custome</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// { userName: &#39;kelly&#39;, sayHello: [Function (anonymous)] }
+</span></span></span></code></pre></div><p><strong>注意：使用 require（）导入模块时，永远以 module.exports 指向的对象为准。</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// custome.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">userName</span> <span class="o">=</span> <span class="s2">&#34;kelly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">sayHello</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">nickName</span><span class="o">:</span> <span class="s2">&#34;alice&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sayHi</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;hi&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">custome</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./custome&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">custome</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// { nickName: &#39;alice&#39;, sayHi: [Function: sayHi] }
+</span></span></span></code></pre></div><p><strong>exports 对象</strong>: 由于 module.exports 单词写起来比较复杂，为了简化向外共享成员的代码，Node 提供了 exports 对象，默认情况下，module.exports 和 exports 指向的是同一个对象,<strong>最终共享结果以 module.exports 为准</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// exports.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exports</span><span class="p">);</span> <span class="c1">// {}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">);</span> <span class="c1">// {}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exports</span> <span class="o">===</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">exports</span><span class="p">.</span><span class="nx">userName</span> <span class="o">=</span> <span class="s2">&#34;aa&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">exports</span><span class="p">.</span><span class="nx">sayHello</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">exportData</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./exports&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exportData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// { userName: &#39;aa&#39;, sayHello: [Function (anonymous)] }
+</span></span></span></code></pre></div><p>需要注意的是，<strong>require（）模块的时候，得到的永远是 module.exports 指向的对象。</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="o">****</span> <span class="nx">egs1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// exportTest.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">exports</span><span class="p">.</span><span class="nx">userName</span> <span class="o">=</span> <span class="s2">&#34;bb&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">gender</span><span class="o">:</span> <span class="s2">&#34;男&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">exportData</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./exportTest&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exportData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// { gender: &#34;男&#34; }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">****</span> <span class="nx">egs2</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// exportTest.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">userName</span> <span class="o">=</span> <span class="s2">&#34;bb&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">gender</span><span class="o">:</span> <span class="s2">&#34;男&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">exportData</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./exportTest&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exportData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// { userName: &#34;bb&#34; }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">****</span> <span class="nx">egs3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// exportTest.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">userName</span> <span class="o">=</span> <span class="s2">&#34;bb&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">exports</span><span class="p">.</span><span class="nx">gender</span> <span class="o">=</span> <span class="s2">&#34;男&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">exportData</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./exportTest&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exportData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// { userName: &#34;bb&#34;, gender: &#34;男&#34; }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">****</span> <span class="nx">egs4</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// exportTest.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">gender</span><span class="o">:</span> <span class="s2">&#34;男&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">userName</span><span class="o">:</span> <span class="s2">&#34;bb&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">exportData</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./exportTest&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exportData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// { userName: &#34;bb&#34;, gender: &#34;男&#34;, age:12 }
+</span></span></span></code></pre></div><h4 id="15-模块化规范">1.5 模块化规范</h4>
+<p>模块化规范是指，对代码进行拆分和组合的时候需要遵循的规则。如，使用什么样的语法格式引用模块，在模块中使用什么样的语法规范向外暴露成员。
+大家都遵守同样的规范写代码，降低了沟通成本，方便各个模块之间相互调用。</p>
+<p>Node.js 遵循了 CommonJS 模块化规范，CommonJS 规范了模块的特性以及各个模块之间如何实现相互依赖。</p>
+<p>CommonJS 规范</p>
+<ul>
+<li>在每个模块内部，module 代表当前模块。</li>
+<li>module 变量是一个对象，它的 exports 属性是对外的接口(即 module.exports)。</li>
+<li>加载某个模块时，其实是加载某个模块的 module.exports 属性，require() 方法用于加载模块。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/nodejs_2/" data-title="Node.js基础(2) - 模块化" data-hashtags="Node.js"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/nodejs_2/" data-hashtag="Node.js"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/nodejs_2/" data-title="Node.js基础(2) - 模块化"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/nodejs_2/" data-title="Node.js基础(2) - 模块化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/nodejs_2/" data-title="Node.js基础(2) - 模块化"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/node.js/">Node.js</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/nodejs_1/" class="prev" rel="prev" title="Node.js基础(1) - 内置模块"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Node.js基础(1) - 内置模块</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Summer</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
