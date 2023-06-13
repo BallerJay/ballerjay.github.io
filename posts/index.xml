@@ -3,7 +3,27 @@
         <title>All Posts - BallerJay&#39;s Blog</title>
         <link>https://ballerjay.github.io/posts/</link>
         <description>All Posts | BallerJay&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 12 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 13 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Node.js基础(3) - Express</title>
+    <link>https://ballerjay.github.io/posts/nodejs_3/</link>
+    <pubDate>Tue, 13 Jun 2023 00:00:00 &#43;0000</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/posts/nodejs_3/</guid>
+    <description><![CDATA[一、初识 express 1. 基本概念 官方给出的概念：Express 是基于 Node.js 平台，快速、开放、极简的 Web 开发框架。
+通俗的理解： Express 的作用和 Node.js 内置的 http 模块类似，是专门用来创建 Web 服务器的。
+Express 的本质：就是一个 npm 上的第三方包，提供了快速创建 Web 服务器的快捷方法。
+Express 的中文官网：中文官网
+2. 进一步理解 Express Q：不使用 Express 能否创建 Web 服务器
+A：能，使用 Node.js 提供的原生 http 模块即可。
+Q：既生瑜何生亮，有了 http 内置模块，为什么还有用 Express?
+A：http 内置模块用起来很复杂，开发效率低;Express 是基于内置的 http 模块进一步封装出来的，能够极大的提高开发效率.
+Q：http 内置模块与 Express 是什么关系?
+A：类似于浏览器中 Web API 和 jQuery 的关系。后者是基于前者进一步封装出来的。
+Q：Express 能做什么
+A：对于前端程序员来说，最常见的两种服务器，分别是：
+Web 网站服务器：专门对外提供 Web 网页资源的服务器 API 接口服务器：专门对外提供 API 接口的服务器 使用 Express，我们可以方便、快速的创建 Web 网站服务器或 API 接口的服务器。]]></description>
+</item>
+<item>
     <title>Node.js基础(2) - 模块化</title>
     <link>https://ballerjay.github.io/posts/nodejs_2/</link>
     <pubDate>Mon, 12 Jun 2023 00:00:00 &#43;0000</pubDate>
