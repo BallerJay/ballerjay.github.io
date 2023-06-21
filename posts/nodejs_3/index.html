@@ -51,7 +51,7 @@ Web 网站服务器：专门对外提供 Web 网页资源的服务器 API 接口
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ballerjay.github.io\/posts\/nodejs_3\/"
-        },"genre": "posts","keywords": "Node.js","wordcount":  291 ,
+        },"genre": "posts","keywords": "Node.js","wordcount":  1874 ,
         "url": "https:\/\/ballerjay.github.io\/posts\/nodejs_3\/","datePublished": "2023-06-13T00:00:00+00:00","dateModified": "2023-06-13T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -108,8 +108,8 @@ Web 网站服务器：专门对外提供 Web 网页资源的服务器 API 接口
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Node.js基础(3) - Express</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/node/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Node</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-13">2023-06-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;291 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-13">2023-06-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1874 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -121,6 +121,9 @@ Web 网站服务器：专门对外提供 Web 网页资源的服务器 API 接口
       <ul>
         <li><a href="#一初识-express">一、初识 express</a></li>
         <li><a href="#二express-基本使用">二、express 基本使用</a></li>
+        <li><a href="#三express-路由">三、express 路由</a></li>
+        <li><a href="#四express-中间件">四、express 中间件</a></li>
+        <li><a href="#五使用-express-写接口">五、使用 express 写接口</a></li>
       </ul>
     </li>
   </ul>
@@ -208,7 +211,648 @@ server.use(express.static(&#39;./files&#39;))
 <pre tabindex="0"><code>express.use(&#39;/public&#39;, express .static(&#34;./public&#39;))
 </code></pre><p>现在，就可以通过带有 /public 前缀地址来访问 public 目录中的文件了。</p>
 <p><a href="http://localhost:3000/public/images/kitten.jpg" target="_blank" rel="noopener noreffer">http://localhost:3000/public/images/kitten.jpg</a></p>
-</div><div class="post-footer" id="post-footer">
+<h3 id="三express-路由">三、express 路由</h3>
+<h4 id="1-基本概念-1">1. 基本概念</h4>
+<p>什么是路由，广义来讲，路由就是映射关系。在 Express 中，路由指的是客户端的请求与服务器处理函数之间的映射关系 Express 中的路由由三部分组成，分别是请求的类型、请求的 URL 地址、处理函数，格式如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- METHOD 是指请求的方式 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- PATH，HANDLER 指的是请求的路径 HANDLER 是指请求事件处理函数 --&gt;</span>
+</span></span><span class="line"><span class="cl">SERVER.METHOD(PATH，HANDLER)
+</span></span></code></pre></div><p>例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- // 匹配 GET 请求，且请求 URL 为 / --&gt;</span>
+</span></span><span class="line"><span class="cl">server.get(&#39;/&#39;, function (req, res) {
+</span></span><span class="line"><span class="cl">    res.send( &#34;Hello world!&#34; )
+</span></span><span class="line"><span class="cl">})
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- // 匹配 POST 请求，且请求 URL 为 / --&gt;</span>
+</span></span><span class="line"><span class="cl">server.post(&#39;/&#39;, function (req, res) {
+</span></span><span class="line"><span class="cl">    res.send( &#34; A POST request&#34; )
+</span></span><span class="line"><span class="cl">})
+</span></span></code></pre></div><h4 id="2-路由匹配过程">2. 路由匹配过程</h4>
+<p>每当一个请求到达服务器之后，需要先经过路由匹配，只有匹配成功之后，才会调用对应的处理函数。在匹配时，会按照路由的顺序进行匹配，如果请求类型和请求的 URL 同时匹配成功，则 Express 会将这次请求，转交给对应的 function 函数进行处理。</p>
+<h4 id="3-简单使用">3. 简单使用</h4>
+<p>在 Express 中使用路由最简单的方式，就是把路由挂载到 express()实例上，示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;express&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建 web 服务器，命名为 server
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 挂载路由
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span> <span class="s1">&#39;Hello world.&#39;</span><span class="p">)</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/，(req, res) =&gt; { res.send( &#39;</span><span class="nx">Post</span> <span class="nx">Request</span><span class="p">.</span><span class="s1">&#39;) })
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">// 启动 web 服务器
+</span></span></span><span class="line"><span class="cl"><span class="s1">server.listen(80,() =&gt;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    console.log(&#39;</span><span class="nx">server</span> <span class="nx">running</span> <span class="nx">at</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">})</span>
+</span></span></code></pre></div><h4 id="4-模块化路由">4. 模块化路由</h4>
+<p>为了方便对路由进行模块化的管理，Express 不建议将路由直接挂载到 express() 实例上，而是推荐将路由抽离为单独的模块，将路由抽离为单独模块的步骤如下：</p>
+<ul>
+<li>创建路由模块对应的 js 文件</li>
+<li>调用 express.Router() 函数创建路由对象</li>
+<li>向路由对象上挂载具体的路由</li>
+<li>使用 module.exports 向外共享路由对象</li>
+<li>使用 server.use()函数注册路由模块</li>
+</ul>
+<p>实例 demo:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="c1">// 02-router.js --&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 1.导入 express
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 2.创建路由对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/user/list&#34;</span><span class="err">，</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="err">，</span><span class="nx">res</span><span class="p">){</span> <span class="c1">// 3.挂我获取用户列表的路由
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span> <span class="s1">&#39;Get user list.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/user/add’， function (req， res){ // 4. 挂我添加用户的路由
+</span></span></span><span class="line"><span class="cl"><span class="s1">    res .send( &#34;Add new user.&#39;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span>    <span class="c1">// 5.向外导出路由对象
+</span></span></span></code></pre></div><p>使用</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="c1">// 02.js --&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;express&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 1.导入路由模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./02-router.js&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 2.注册路由模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="c">&lt;!--</span> <span class="nx">注意</span><span class="o">:</span> <span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">()</span><span class="nx">函数的作用</span><span class="err">，</span><span class="nx">就是来注册全局中间件</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="err">，</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;router server is runing&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p>为路由模块添加统一的前缀</p>
+<p>类似于托管静态资源时，为静态资源统一挂载访问前缀一样，路由模块添加前缀的方式也非常简单：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 1.导入路由模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">userRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./02-router.js&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 2.使用 server.use 注册路由模块，并添加统一的访问前缀 /api
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;/api&#34;</span><span class="p">,</span> <span class="nx">userRouter</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 访问路由地址前统一加 /api
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 127.0.0/user/list =&gt; 127.0.0/api/user/list
+</span></span></span></code></pre></div><h3 id="四express-中间件">四、express 中间件</h3>
+<h4 id="1-什么是中间件">1. 什么是中间件</h4>
+<p>中间件（Middleware），特指业务流程的中间处理环节。现实生活中的中间件 在处理污水的时候，一般都要经过三个处理环节，从而保证处理过后的废水，达到排放标准。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/cV1Wp5.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/cV1Wp5.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/cV1Wp5.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/cV1Wp5.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/cV1Wp5.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/cV1Wp5.png" /></p>
+<p>处理污水的这三个中间处理环节，就可以叫做中间件。中间件都需要有输入和输出。</p>
+<h4 id="2-express-中间件的调用流程">2. Express 中间件的调用流程</h4>
+<p>当一个请求到达 Express 服务器之后，可以连续调用多个中间件，从而对这次请求进行预处理。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/W6C2mM.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/W6C2mM.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/W6C2mM.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/W6C2mM.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/W6C2mM.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/W6C2mM.png" /></p>
+<p>在这些处理中，上一个中间件的输出会作为下一个中间件的输入依次调用。最终处理完毕之后进行响应。</p>
+<h4 id="3-express-中间件的格式">3. Express 中间件的格式</h4>
+<p>Express 的中间件，本质上就是一个 function 处理函数，Express 中间件的格式如下：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/3YYgCl.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/3YYgCl.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/3YYgCl.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/3YYgCl.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/3YYgCl.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/3YYgCl.png" /></p>
+<p>注意：中间件函数的形参列表中，必须包含 next 参数。而路由处理函数中只包含 req 和 res。</p>
+<h4 id="4-next-函数的作用">4. next 函数的作用</h4>
+<p>next 函数是实现多个中间件连续调用的关键，它表示把流转关系转交给下一个中间件或路由。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/8kcgpW.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/8kcgpW.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/8kcgpW.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/8kcgpW.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/8kcgpW.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/8kcgpW.png" /></p>
+<h4 id="5-express-中间件的初体验">5. Express 中间件的初体验</h4>
+<h5 id="51-定义中间件函数">5.1 定义中间件函数</h5>
+<p>可以通过如下的方式，定义一个最简单的中间件函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 常量 mw 所指向的，就是一个中间件函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">mw</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;这是一个最简单的中间件医数&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 注意: 在当前中间件的业务处理完毕后，必须调用 next() 函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 表示把流转关系转交给下一个中间件或路由
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><h5 id="52-定义全局生效的中间件函数">5.2 定义全局生效的中间件函数</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">第一种方式</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义一个简单的中间件函数 mw
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">mw</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">,</span><span class="nx">next</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;这是一个最简单的中间件函数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 注意: 在当前中间件的业务处理完毕后，必须调用 next() 函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 表示把流转关系转交给下一个中间件或路由
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 将 mw 注册为全局生效的中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">mw</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">第二种方式</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">,</span><span class="nx">next</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;这是一个最简单的中间件函数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><h5 id="53-中间件的作用">5.3 中间件的作用</h5>
+<p>多个中间件之间，共享同一份 req 和 res。基于这样的特性，我们可以在上游的中间件中，统一为 req 或 res 对象添加自定义的属性或方法，供下游的中间件或路由进行使用。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/9bvToz.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/9bvToz.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/9bvToz.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/9bvToz.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/9bvToz.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/9bvToz.png" /></p>
+<p>使用示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;express&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @description 格式化时间
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">dateFormat</span><span class="p">(</span><span class="nx">dateStr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">dt</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">dateStr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">year</span> <span class="o">=</span> <span class="nx">dt</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">month</span> <span class="o">=</span> <span class="nx">paddingZero</span><span class="p">(</span><span class="nx">dt</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">day</span> <span class="o">=</span> <span class="nx">paddingZero</span><span class="p">(</span><span class="nx">dt</span><span class="p">.</span><span class="nx">getDate</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">hours</span> <span class="o">=</span> <span class="nx">paddingZero</span><span class="p">(</span><span class="nx">dt</span><span class="p">.</span><span class="nx">getHours</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">minutes</span> <span class="o">=</span> <span class="nx">paddingZero</span><span class="p">(</span><span class="nx">dt</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">seconds</span> <span class="o">=</span> <span class="nx">paddingZero</span><span class="p">(</span><span class="nx">dt</span><span class="p">.</span><span class="nx">getSeconds</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="nx">year</span><span class="si">}</span><span class="sb">-</span><span class="si">${</span><span class="nx">month</span><span class="si">}</span><span class="sb">-</span><span class="si">${</span><span class="nx">day</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">hours</span><span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="nx">minutes</span><span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="nx">seconds</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义补零
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">paddingZero</span><span class="p">(</span><span class="nx">num</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">num</span> <span class="o">&gt;</span> <span class="mi">9</span> <span class="o">?</span> <span class="nx">num</span> <span class="o">:</span> <span class="s2">&#34;0&#34;</span><span class="o">+</span><span class="nx">num</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 常量 mw 所指向的，就是一个中间件函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">mw</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">,</span><span class="nx">next</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">req</span><span class="p">.</span><span class="nx">startTime</span> <span class="o">=</span> <span class="nx">dateFormat</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;这是一个最简单的中间件函数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 注意: 在当前中间件的业务处理完毕后，必须调用 next() 函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 表示把流转关系转交给下一个中间件或路由
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 将 mw 注册为全局生效的中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">mw</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">)=&gt;{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;home page visit time：&#34;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">startTime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/user&#34;</span><span class="p">,(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">)=&gt;{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;user page visit time：&#34;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">startTime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">,()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;router server is runing：127.0.0.1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">访问</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl"><span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1/user
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1/
+</span></span></span></code></pre></div><h5 id="54-定义多个全局中间件">5.4 定义多个全局中间件</h5>
+<p>可以使用 server.use() 连续定义多个全局中间件。客户端请求到达服务器之后，会按照中间件定义的先后顺序依次进行调用，示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="err">，</span><span class="nx">res</span><span class="err">，</span><span class="nx">next</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 第1个全局中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;调用了第1个全局中间件&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">next</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="err">，</span><span class="nx">res</span><span class="err">，</span><span class="nx">next</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 第2个全局中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;调用了第2个全局中间件&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">next</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//请求这个路由，会依次触发上述两个全局中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Hpage&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><h5 id="55-局部中间件">5.5 局部中间件</h5>
+<p>不使用 server.use() 定义的中间件，叫做局部生效的中间件，示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"> <span class="c1">// 定义中间件函数 mw1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">mw1</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span> <span class="nx">res</span><span class="p">.</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;这是中间件函数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">next</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="c1">// mw1 这个中间件只在“当前路由中生效”，这种用法属于“局部生效的中间件”
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="nx">mw1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Home page.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// mw1 这个中间件不会影响下面这个路由
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/user&#34;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span> <span class="s1">&#39;user page.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><h5 id="56-定义多个局部中间件">5.6 定义多个局部中间件</h5>
+<p>可以在路由中，通过如下两种等价的方式，使用多个局部中间件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 以下两种写法是”完全等价”的，可根据自己的喜好，选择任意一种方式进行使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="nx">mw1</span><span class="p">,</span> <span class="nx">m2</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Home page.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="p">[</span><span class="nx">mw1</span><span class="p">,</span> <span class="nx">m2</span><span class="p">],</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Home page.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><h5 id="57-中间件的注意事项">5.7 中间件的注意事项</h5>
+<ul>
+<li>一定要在路由之前注册中间件</li>
+<li>客户端发送过来的请求，可以连续调用多个中间件进行处理</li>
+<li>执行完中间件的业务代码之后，不要忘记调用 next()函数</li>
+<li>为了防止代码逻辑混乱，调用 next() 函数后不要在写额外的代码</li>
+<li>连续调用多个中间件时，多个中间件之间，共享 req 和 res 对象</li>
+</ul>
+<h5 id="58-中间件的分类">5.8 中间件的分类</h5>
+<p>为了方便大家理解和记忆中间件的使用，Express 官方把常见的中间件用法，分成了 5 大类，分别是：</p>
+<p>1.应用级别的中间件</p>
+<p>通过 server.use() 或 server.get() 或 server.post() 绑定到 server 实例上的中间件，叫做应用级别的中间件，代码示例如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 应用级别的中间件《全局中间件》
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 应用级别的中间件《局部中间件》
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="nx">ml</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Hom page. &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><ol start="2">
+<li>路由级别的中间件</li>
+</ol>
+<p>绑定到 express.Router() 实例上的中间件，叫做路由级别的中间件。它的用法和应用级别中间件没有任何区别。只不过，应用级别中间件是绑定到 server 实例上，路由级别中间件绑定到 router 实例上，代码实例如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 路由级别的中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Time:&#39;</span><span class="err">，</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">next</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">router</span><span class="p">)</span>
+</span></span></code></pre></div><ol start="3">
+<li>错误级别的中间件</li>
+</ol>
+<p>错误级别中间件的作用：专门用来捕获整个项目中发生的异常错误，从而防止项目异常崩溃的问题。</p>
+<p>格式：错误级别中间件的 function 处理函数中，必须有 4 个形参，形参顺序从前到后，分别是(err,req,res,next)。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 1.路由
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;服务器内部发生了错误! &#34;</span><span class="p">);</span> <span class="c1">// 1.1 抛出一个自定义的错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Home Page .&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 2.错误级别的中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;发生了错误: &#34;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span> <span class="c1">// 2.1 在服务器打印错误消息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Error! &#34;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span> <span class="c1">// 2.2 向客户端响应错误相关的内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></div><p><strong>注意：错误级别中间件必须注册在所有路由之后</strong></p>
+<ol start="4">
+<li>Express 内置中间件</li>
+</ol>
+<p>自 Express 4.16.0 版本开始，Express 内置了 3 个常用的中间件，极大的提高了 Express 项目的开发效率和体验:</p>
+<p>express.static 快速托管静态资源的内置中间件，例如: HTML 文件、图片、CSS 样式等(无兼容性)
+express,json 解 JSON 格式的请求体数据(有兼容性，仅在 4.16.0+ 版本中可用)
+express.urlencoded 解析 URL-encoded 格式的请求体数据 (有兼容性，仅在 4.16.0+ 版本中可用)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 配置解析 application/json 格式数据的内置中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 配置解 application/x-www-form-urlencoded 格式数据的内置中间件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}));</span>
+</span></span></code></pre></div><p>demo1</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 通过 express.json() 这个中间件，解析表单中的 JSON 格式的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/json&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 在服务端可以通过 req.body 接收客户端发送的请求体数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 默认情况下 不配置解析json 数据的中间件，则  req.body 为undefined
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="s2">&#34;JSON 格式数据&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/nFepzD.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/nFepzD.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/nFepzD.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/nFepzD.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/nFepzD.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/nFepzD.png" /></p>
+<p>demo2</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/urlForm&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 在服务器端，可以通过 req.body 来获取 JSON 格式的表单数据和 url-encoded 格式的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;log----&gt;JSON 格式数据, req.body&#34;</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/YKbu1c.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/YKbu1c.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/YKbu1c.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/YKbu1c.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/YKbu1c.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/06/2023-06-21/YKbu1c.png" />;</p>
+<ol start="5">
+<li>第三方中间件</li>
+</ol>
+<p>非 Express 官方内置的，而是由第三方开发出来的中间件，叫做第三方中间件。在项目中，大家可以按需下载并配置第三方中间件，从而提供项目的开发效率。</p>
+<p>例如:在 <a href="mailto:express@4.16.0" rel="">express@4.16.0</a> 之前的版本中，经常使用 body-parser 这个第三方中间件，来解析请求体数据。使用步骤如下:</p>
+<ul>
+<li>运行 npm install body-parser 安装中间件</li>
+<li>使用 require() 导入中间件</li>
+<li>调用 app.use() 注册并使用中间件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="c1">// 引入第三方中间件 --&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">parser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;body-parser&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">注册第三方中间件</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">parser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span><span class="nx">extended</span><span class="o">:</span> <span class="kc">false</span><span class="p">}))</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="c1">// 使用第三方中间件解析数据 --&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/urlForm&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;log----&gt;JSON 格式数据, req.body&#34;</span><span class="p">,</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p>注意：Express 内置的 express.urlencoded 中间件，就是基于 body-parse 这个第三方中间件进一步封装出来的。</p>
+<ol start="6">
+<li>自定义中间件</li>
+</ol>
+<p>自己手动模拟一个类似于 express.urlencoded 这样的中间件，来解析 POST 提交到服务器的表单数据。</p>
+<p>实现步骤：</p>
+<p>6.1. 定义中间件函数
+6.2. 监听 req 的 data 事件</p>
+<p>在中间件中，需要监听 req 对象的 data 事件，来获取客户端发送到服务端的数据，如果数据量比较大，无法一次性发送完毕，则客户端会把数据切割后，分批发送到服务器。所以 data 事件可能会触发多次，每一次触发 data 事件时，获取到数据只是完整数据的一部分，需要手动对接收到的数据进行拼接。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 定义变量，用来存储客户端发送过来的请求体数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 监听 req 对象的 data 事件 (客户端发送过来的新的请求体数据)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;data&#34;</span><span class="p">,</span> <span class="nx">chunk</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 拼接请求体数据，隐式转换为字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">str</span> <span class="o">+=</span> <span class="nx">chunk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>6.3. 监听 req 的 end 事件</p>
+<p>当请求体数据接收完毕之后，会自动触发 req 的 end 事件。因此，我们可以在 req 的 end 事件中，拿到并处理完整的请求体数据。示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 监听 req 对象的 end 事件(请求体发送完毕后自动触发)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;end&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 打印完整的请求体数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// T0D0: 把字符串格式的请求体数据，解析成对象格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></div><p>6.4 使用 querystring 模块解析请求体数据</p>
+<p>Nodejs 内置了一个 querystring 模块，专门用来处理查询字符串。通过这个模块提供的 parse 函数，可以轻松把查询字符串，解析成对象的格式。示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 导入处理 querystring 的 Node.js 内置模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">qs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;querystring&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 调用 qs.parse() 方法，把查询字符串解析为对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+</span></span></code></pre></div><p>6.5 将解析出来的数据对象挂载为 req.body</p>
+<p>上游的中间件和下游的中间件及路由之间，共享同一份 req 和 res。因此，我们可以将解析出来的数据，挂载为 req 的自定义属性，命名为 req.body，供下游使用。示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;end&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// 调用 qs.parse() 方法，把查询字符串解析为对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">req</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">body</span><span class="p">;</span> <span class="c1">// 将解析出来的请求体对象，挂载为 req.body 属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">next</span><span class="p">();</span> <span class="c1">// 最后，一定要用 next() 函数，执行后续的业务逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></div><p>6.6 将自定义中间件封装为模块</p>
+<p>为了优化代码的结构，我们可以把自定义的中间件函数，封装为独立的模块，示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// custom-body-parser.js 模块块中的代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kr">const</span> <span class="nx">qs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;querystring&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">function</span> <span class="nx">bodyparser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* 省略其它代码 */</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">bodyParser</span> <span class="c1">// 向外导出解折请求体数据的中间件函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">// -----------分割线--------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">// 1，导入自定义的中间件模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kr">const</span> <span class="nx">myBodyParser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;custom-body-parser&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="c1">// 2，注册自定义的中间件模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">mybodySer</span><span class="p">)</span>
+</span></span></code></pre></div><p>未模块化完整 demo：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;express&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 导入 字符串解析模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">qs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;querystring&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建 服务器 实例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 中间件函数 解析表单数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">myUrlEncoded</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 定义中间件的具体处理逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 监听 data 事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;data&#34;</span><span class="p">,</span> <span class="nx">chunk</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">str</span> <span class="o">+=</span> <span class="nx">chunk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 监听 end 事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;end&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;str&#34;</span><span class="p">,</span> <span class="nx">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;body&#34;</span><span class="p">,</span> <span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">req</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// TODO 把字符串格式的请求体数据转换为 json 对象格式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">myUrlEncoded</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/user&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;127.0.0.1 server is running&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><h3 id="五使用-express-写接口">五、使用 express 写接口</h3>
+<h4 id="1-创建基本服务器">1. 创建基本服务器</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">导入</span> <span class="nx">express</span> <span class="nx">模块</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">创建服务器</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">启动服务器</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,()=&gt;{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;127.0.0.1:8080, server is running&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><h4 id="2-创建-api-路由模块">2. 创建 API 路由模块</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// apiRouter.js [路由横块]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">apiRouter</span>  <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// bind your router here...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">apiRouter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// index.js [导入并注册路由模块]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">apiRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./apiRouter.js&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/api&#39;</span><span class="p">,</span> <span class="nx">apiRouter</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="3-编写-get-接口">3. 编写 GET 接口</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">apiRouter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/get&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 1.获取到客户端通过查询字符串，发送到服务器的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 2.调用 res.send() 方法，把数据响应给客户端
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>           <span class="c1">// 状态，0 表示成功，1 表示失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">msg</span><span class="o">:</span> <span class="s2">&#34;GET请求成功!&#34;</span>  <span class="err">，</span><span class="c1">//状态描述
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">data</span><span class="o">:</span> <span class="nx">query</span>          <span class="c1">// 需要响应给客户端的具体数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><h4 id="4-编写-post-接口">4. 编写 POST 接口</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">apiRouter</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/post&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 1.获取到客户端通过请求体，发送到服务器的 url-encoded 数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 2.调用 res.send() 方法，把数据响应给客户端
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>           <span class="c1">// 状态，0 表示成功，1 表示失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">msg</span><span class="o">:</span> <span class="s2">&#34;POST请求成功!&#34;</span>  <span class="err">，</span><span class="c1">//状态描述
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">data</span><span class="o">:</span> <span class="nx">body</span>          <span class="c1">// 需要响应给客户端的具体数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p><strong>注意：如果要获取 URL-encoded 格式的请求题数据，必须配置中间件 <code>server.use(express.urlencoded({extended: false}))</code></strong></p>
+<h4 id="5-解决跨域问题">5. 解决跨域问题</h4>
+<p>刚才编写的 GET 和 POST 接口，存在一个很严重的问题：不支持跨域请求。解决接口跨域问题的方案主要有两种：</p>
+<ul>
+<li>CORS（主流的解决方案，推荐使用）</li>
+<li>JSONP（有缺陷的解决方案：只支持 GET 请求）</li>
+</ul>
+<p>跨域 demo index.html</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&#34;X-UA-Compatible&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;IE=edge&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1.0&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>跨域问题<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.staticfile.org/jquery/3.6.4/jquery.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;BtnGet&#34;</span><span class="p">&gt;</span>GET<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;BtnPost&#34;</span><span class="p">&gt;</span>POST<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">            <span class="o">%</span> <span class="c1">// 测试 get 接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#BtnGet&#34;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;click&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;GET&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;http://127.0.0.1/api/get&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;张三&#34;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">gender</span><span class="o">:</span> <span class="s2">&#34;男&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="o">%</span> <span class="c1">// 测试 post 接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#BtnPost&#34;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;click&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;http://127.0.0.1/api/post&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="nx">bookName</span><span class="o">:</span> <span class="s2">&#34;西游记&#34;</span><span class="p">,</span> <span class="nx">author</span><span class="o">:</span> <span class="s2">&#34;施耐庵&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00214764114842aebdd20a8e9c2eb5a5~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?"
+        data-srcset="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00214764114842aebdd20a8e9c2eb5a5~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?, https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00214764114842aebdd20a8e9c2eb5a5~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp? 1.5x, https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00214764114842aebdd20a8e9c2eb5a5~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp? 2x"
+        data-sizes="auto"
+        alt="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00214764114842aebdd20a8e9c2eb5a5~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?"
+        title="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00214764114842aebdd20a8e9c2eb5a5~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<h5 id="51-使用-cors-中间件解决跨域问题">5.1 使用 cors 中间件解决跨域问题</h5>
+<p>cors 是 Express 的一个第三方中间件。通过安装和配置 cors 中间件，可以很方便地解决跨域问题，使用步骤如下：</p>
+<ul>
+<li>运行<code>npm install cors</code>安装中间件</li>
+<li>使用<code>const cors = require('cors')</code>导入中间件</li>
+<li>在路由之前调用<code>app.use(cors())</code>配置中间件</li>
+</ul>
+<p><strong>注意：一定要在路由之前，配置 cors 这个中间件，从而解决接口跨域的问题</strong></p>
+<p>补充：
+（1）什么是 CORS
+CORS（Cross-Origin Resource Sharing，跨域资源共享）由一系列 HTTP 响应头组件，这些 HTTP 响应头决定资源器是否阻止前端 JS 代码跨域获取资源，浏览器的同源安全策略会组织网页“跨域”获取资源。但如果接口服务配置了 CORS 相关的 HTTP 相应头就可以接触浏览器端的跨域访问限制。</p>
+<p>（2）CORS 的注意事项
+CORS 主要在服务端进行配置，客户端浏览器无须做任何额外的配置，即可请求开启了 CORS 的接口。CORS 在浏览器中有兼容性。只有支持 XMLHttpRequest Level2 的浏览器，才能正常访问开启了 CORS 的服务端接口（例如:IE10+、Chrome4+、FireFox3.5+）</p>
+<p>（3）CORS 跨域响应头</p>
+<ul>
+<li>Access-Control-Allow-Origin</li>
+</ul>
+<p>响应头部中可以携带一个 Access-Control-Allow-Origin 字段，其语法如下：
+<code>Access-Control-Allow-Origin: &lt;origin&gt; | *</code></p>
+<p>其中，origin 参数的值制定了允许访问该资源的外域 URL。例如，下面的字段值将只允许来自 text.cn 的请求：<code>res.setHeader(&quot;Access-Control-Allow-Origin&quot;,'http://test.cn')</code></p>
+<ul>
+<li>Access-Control-Allow-Headers</li>
+</ul>
+<p>默认情况下，CORS 仅支持客户端向服务端发送如下的 9 个请求头：Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data Viewport-Width、width、Content-Type（值仅限于 text/plain、multipart/form-data、application/x-www-form-urlencoded 三者之一）如果客户端向服务器发送了额外的请求头信息，则需要在服务器端，通过 Access-Control-Allow-Headers 对额外的请求头进行声明，否则这次请求会失败！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 允许客户端额外向服务器发送 Content-Type 请求头和 X-Custom-Header 请求头
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 注意:多个请求头之间使用英文的逗号进行分割
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s2">&#34;Access-Control-Allow-Headers&#34;</span><span class="p">,</span> <span class="s2">&#34;Content-Type,X-Custom-Header&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li>Access-Control-Allow-Methods</li>
+</ul>
+<p>默认情况下。CORS 仅支持客户端发起 GET、POST、HEAD 请求。</p>
+<p>如果客户端希望通过 PUT、DELETE 等方式请求服务器的资源，则需要在服务器端，通过 Access-Control-Allow-Methods 来指明实际请求所允许使用的 HTTP 方法，示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 只允许 POST、GET、DELETE、HEAD 请求方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">res</span><span class="p">,</span> <span class="nx">setHeader</span><span class="p">(</span><span class="s2">&#34;Access-Control-Allow-Methods&#34;</span><span class="p">,</span> <span class="s2">&#34;POST,GET,DELETE,HEAD&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 允许所有的 HTTP 请求方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s2">&#34;Access-Control-Allow-Methods&#34;</span><span class="p">,</span> <span class="s2">&#34;*&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><p>（4）CORS 请求分类
+客户端在请求 CORS 接口时，根据请求方式和请求头的不同，可以将 CORS 的请求分为两大类，分别是：简单请求、预检请求。</p>
+<p><strong>简单请求</strong></p>
+<p>同时满足以下两大条件的请求，就属于简单请求：</p>
+<ol>
+<li>
+<p>请求方式：GET、POST、HEAD 三者之一。</p>
+</li>
+<li>
+<p>HTTP 头部信息不超过以下几种字段：无自定义头部字段、Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data Viewport-Width、Width、Content-Type（只有三个值 text/plain、multipart/form-data、application/x-www-form-urlencoded ）</p>
+</li>
+</ol>
+<p><strong>预检请求</strong></p>
+<p>只要符合以下任何一个条件的请求，都需要进行预检请求：</p>
+<ol>
+<li>
+<p>请求方式为 GET、POST、HEAD 之外的请求 Method 类型</p>
+</li>
+<li>
+<p>请求头中包含自定义头部字段</p>
+</li>
+<li>
+<p>向服务器发送了 application/json 格式的数据</p>
+</li>
+</ol>
+<p>在浏览器与服务器正式通信之前，浏览器会先发送 OPTION 请求进行预检，以获取服务器是否允许该实际请求，所以这一次的 OPTION 请求称为“预检请求”，服务器成功响应预检请求后，才会发送真正的请求，并且携带真实的数据。</p>
+<p>区别：
+简单请求的特点：客户端与服务器之间只会发生一次请求，预检请求的特点：客户端与服务器之间会发生两次请求，OPTION 预检请求成功之后，才会发起真正的请求</p>
+<h5 id="52-jsonp-接口">5.2 JSONP 接口</h5>
+<p>（1）概念
+浏览器端通过<code>&lt;script&gt;</code>标签的 src 属性，请求服务器上的数据，同时，服务器返回一个函数的调用。这种请求数据的方式叫做 JSONP。</p>
+<p>（2）特点
+JSONP 不属于真正的 Ajax 请求，因为它没有使用 XMLHttpRequest 这个对象</p>
+<p>JSONP 仅支持 GET 请求，不支持 POST、PUT、DELETE 等请求</p>
+<p>创建 JSONP 接口的注意事项</p>
+<p>如果项目中已经配置了 CORS 跨域资源共享，为了防止冲突，必须在配置 CORS 中间件之前声明 JSONP 的接口。否则 JSONP 接口会被处理成开启了 CORS 的接口。示例代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 优先创建 JSONP 接口 [这个接口不会被处理成 CORS 接口]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/api/jsonp&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 再配置 CORS 中间件 [后续的所有接口，都会被处理成 CORS 接口]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">cors</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 这是一个开启了 CORS 的接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/api/get&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{});</span>
+</span></span></code></pre></div><p>（3）实现 JSONP 接口
+步骤：</p>
+<ol>
+<li>获取客户端发送过来的回调函数的名字</li>
+<li>得到通过 JSONP 形式发送到客户端的数据</li>
+<li>根据前两步得到的数据，拼接出一个函数调用字符串</li>
+<li>把上一步拼接得到的字符串，响应给客户端的<code>&lt;script&gt;</code>标签进行解析执行</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/api/jsonp&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 1.获取客户端发送过来的回调函数的名字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">funcName</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">callback</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 2.定义要通过 JSONP 形式发送给客户端的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;zs&#34;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">22</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 3.根据前两步得到的数据，拼接出一个函数调用的宁符串 callBack(data)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">scriptstr</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">funcName</span><span class="si">}</span><span class="sb">(</span><span class="si">${</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="si">}</span><span class="sb">)`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 4.把上一步拼接得到的字符串，响应给客户端的 &lt;script&gt; 标签进行解析执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">scriptStr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
