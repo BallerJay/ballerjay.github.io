@@ -80,40 +80,13 @@
         alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
         title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/BallerJay" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw" aria-hidden="true"></i></a><a href="https://t.me/baller_jay" title="Telegram" target="_blank" rel="noopener noreffer me"><i class="fab fa-telegram-plane fa-fw" aria-hidden="true"></i></a><a href="mailto:i@ballerjay.me" title="Email" rel=" me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/nodejs_3/">Node.js基础(3) - Express</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-06-13">2023-06-13</time></span>&nbsp;<span class="post-category">included in <a href="/categories/node/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Node</a></span></div><div class="content">一、初识 express 1. 基本概念 官方给出的概念：Express 是基于 Node.js 平台，快速、开放、极简的 Web 开发框架。
-通俗的理解： Express 的作用和 Node.js 内置的 http 模块类似，是专门用来创建 Web 服务器的。
-Express 的本质：就是一个 npm 上的第三方包，提供了快速创建 Web 服务器的快捷方法。
-Express 的中文官网：中文官网
-2. 进一步理解 Express Q：不使用 Express 能否创建 Web 服务器
-A：能，使用 Node.js 提供的原生 http 模块即可。
-Q：既生瑜何生亮，有了 http 内置模块，为什么还有用 Express?
-A：http 内置模块用起来很复杂，开发效率低;Express 是基于内置的 http 模块进一步封装出来的，能够极大的提高开发效率.
-Q：http 内置模块与 Express 是什么关系?
-A：类似于浏览器中 Web API 和 jQuery 的关系。后者是基于前者进一步封装出来的。
-Q：Express 能做什么
-A：对于前端程序员来说，最常见的两种服务器，分别是：
-Web 网站服务器：专门对外提供 Web 网页资源的服务器 API 接口服务器：专门对外提供 API 接口的服务器 使用 Express，我们可以方便、快速的创建 Web 网站服务器或 API 接口的服务器。</div><div class="post-footer">
-        <a href="/posts/nodejs_3/">Read More</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/node.js/">Node.js</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/nodejs_2/">Node.js基础(2) - 模块化</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-06-12">2023-06-12</time></span>&nbsp;<span class="post-category">included in <a href="/categories/node/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Node</a></span></div><div class="content">1. 基本概念 模块化是指：在解决复杂问题的时候，自顶向下逐步将系统划分为若干模块的过程，对于整个系统来说，模块是可组合、可分解和可更换的单元。 在编程领域中，一般遵循固定的规则，把一个大文件拆分成独立并且相互依赖的小模块。 提高代码的复用性、可维护性、按需加载。 可以理解为解决复杂问题时的拆分思想。
-1.1 模块分类 根据模块来源不同，可以将 Node.js 分为三类：
-内置模块：Node.js 官方提供的 自定义模块：用户创建的每个 js 文件都是自定义模块 第三方模块：由第三方开发的模块，非官方提供的内置模块，也不是用户自己创建的自定义模块，使用前需要先下载。 1.2 模块加载 任何种类的模块都可以使用require()方法进行加载引用。
-// 内置模块 const fs = require(&#34;fs&#34;); // 自定义模块 const custome = require(&#34;./custome.js&#34;); // 第三方模块 const moment = require(&#34;moment&#34;); 注意：
-在使用 require() 方法加载其他模块时，会执行被加载模块的代码。 在使用 require() 方法用户自定义模块时，可以省略 .js 后缀名。 // custome.js console.log(&#34;custome is require&#34;); // test.js const custome = require(&#34;./custome.js&#34;); console.log(custome); // 输出： // custome is require // {} 1.3 模块作用域 与函数作用域相似，在自定义模块中的变量、方法等成员，只能在当前模块中被访问，这种模块级别的访问限制叫做模块作用域。 好处：防止了全局变量的污染问题。</div><div class="post-footer">
-        <a href="/posts/nodejs_2/">Read More</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/node.js/">Node.js</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/nodejs_1/">Node.js基础(1) - 内置模块</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-06-11">2023-06-11</time></span>&nbsp;<span class="post-category">included in <a href="/categories/node/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Node</a></span></div><div class="content">一、Node.js Node.js 是基于 Chrome V8 引擎的 Javascript 运行环境。可以快速构建网络服务及应用，是用 JavaScript 语言构建的服务平台，可用于后端建立服务器。
-二、Node.js 内置模块 1. fs 文件系统 Node 官方提供的用来操作文件的模块，它提供了一些一系列方法，满足用户对文件的操作需求。 使用之前需要先导入：const fs = require('fs')
-1.1 fs.readFile() 读取指定文件的内容
-fs.readFile(path [, option], callBack) 参数1：必选参数， 字符串， 表示文件路径 参数2：可选参数，表示以什么编码格式读取文件 参数3：必选参数，通过回调函数获得读取结果 # 这里 __dirname 表示的是当前路径 fs.readFile(__dirname + &#34;/1.txt&#34;, &#34;utf8&#34;, function (err, data) { if (err) { return console.log(&#34;读取文件失败&#34;, err.message); } console.log(&#34;读取文件成功&#34;, data); }); 1.2 fs.writeFile() 向指定文件中写入内容
-fs.writeFile(file, data [, option], callBack) 参数1：必选参数，表示文件路径 参数2：必选参数，写入文件的内容 参数3：可选参数，表示以什么编码格式写入文件 参数4：必选参数，通过回调函数获得写入结果 fs.writeFile(__dirname + &#39;/1.txt&#39;, &#39;aabbccdd&#39;, function(err,dataStr){ if(err) { console.</div><div class="post-footer">
-        <a href="/posts/nodejs_1/">Read More</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/node.js/">Node.js</a></div></div>
+        <a href="/posts/typescript_strange_symbols/">Typescript奇怪的符号</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-10-30">2023-10-30</time></span>&nbsp;<span class="post-category">included in <a href="/categories/typescript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Typescript</a></span></div><div class="content">1. ! 非空断言操作符 概念：在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符 ！可以用于断言操作对象是非 null 和非 undefined 类型。具体而言，x! 将从 x 值域中排除 null 和 undefined。
+使用场景：
+1.1 忽略 undefined 和 null 类型
+function myFunc(maybeString: string | undefined | null) { // Type &#39;string | null | undefined&#39; is not assignable to type &#39;string&#39;. // Type &#39;undefined&#39; is not assignable to type &#39;string&#39;. const onlyString: string = maybeString; // Error const ignoreUndefinedAndNull: string = maybeString!; // Ok } 1.2 调用函数时忽略 undefined 类型</div><div class="post-footer">
+        <a href="/posts/typescript_strange_symbols/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/typescript%E5%A5%87%E6%80%AA%E7%9A%84%E7%AC%A6%E5%8F%B7/">Typescript奇怪的符号</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/reacthooks/">一次性整明白的 React Hook</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-06-01">2023-06-01</time></span>&nbsp;<span class="post-category">included in <a href="/categories/react/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>React</a></span></div><div class="content">useState useState 可以说是我们日常最常用的 hooks 之一了，在实际使用过程中有一些简单的小技巧能帮助你提升性能 &amp; 减少出 bug 的概率。
@@ -160,6 +133,23 @@ HTML5 给 &lt;a&gt; 标签增加了一个 download 属性，当 &lt;a&gt; 标签
 很可能是浏览器的 同源策略 导致 download 属性失效造成的。同源策略是浏览器的一种安全策略，所谓的同源指的是 URL 地址里面的协议、域名和端口号均相同，如果一个站点开启了同源策略，也称为禁止跨域访问；这时，这个站点的资源自允许在该站点内部跳转和访问，不允许被第三方站点访问和跳转。我们这个案例中由于源 cnblogs 的服务器设置了禁止跨域，在我们这个场景下的表现就是不能在非 cnblogs 站点下直接下载 cnblogs 文件，所以这里 download 属性会失效，而失效之后做的仅仅是跳转功能。</div><div class="post-footer">
         <a href="/posts/a_tag_download/">Read More</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%89%8D%E7%AB%AF%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E6%88%96%E8%80%85%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F/">前端下载图片或者文件的方式</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/es2015/">总结 ES2015 的所有新特性</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-06-15">2022-06-15</time></span>&nbsp;<span class="post-category">included in <a href="/categories/javascript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaScript</a></span></div><div class="content">总结 ES2015 的所有新特性 💥 ES2015(ES6)是改动最大的一个版本，大体如下: 🍏 let、const关键字和块级作用域 在ES6来临之前，我们习惯于var 关键字声明变量，var声明的变量是属于全局变量，最终会挂载到window对象，这一操作可能会引起一些意外的错误。所以在ES6中加入了const和let	关键字来声明变量。
+let v = 100 v = 200 const a = 1 a = 2; // Uncaught TypeError: Assignment to constant variable. // 报错，const关键字声明的是一个常量，是不可以改变的（针对于基本数据类型） { var a = 100 } { let b = 100 } console.log(a) // output: 100 console.log(b) // 报错，b is not defined. // let声明的变量只能在当前的`块级作用域({} 之间的区域)`中使用 ⚠️ let、const声明的变量存在一个暂时性死区的问题
+a = 1; let a = 0;// Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization // 暂时性死区是指使用let、const关键字声明的变量在定义之前是不可以使用的，声明之后才可以使用。 🍐 函数的扩展（函数形参的默认值、箭头函数） 函数默认值</div><div class="post-footer">
+        <a href="/posts/es2015/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/es2015%E6%96%B0%E7%89%B9%E6%80%A7/">ES2015新特性</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/es2022/">ES2022 都有哪些新特性</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-05-25">2022-05-25</time></span>&nbsp;<span class="post-category">included in <a href="/categories/javascript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaScript</a></span></div><div class="content">ES2022 有哪些新特性！ 1. Object.hasOwn() 在ES2022之前，可以使用Object.prototype.hasOwnProperty() 来检查一个属性是否属于对象。
+Object.hasOwn特性是一种更简洁、更可靠的检查属性是否直接设置在对象上的方法:
+const example = { property: &#39;123&#39; } console.log(Object.prototype.hasOwnProperty.call(example,&#39;property&#39;)); console.log(Object.hasOwn(example,&#39;property&#39;)) // output: true true 该特性的浏览器支持如下所示：
+2. at() at() 是一个数组方法，用于通过给定索引来获取数组元素。当给定索引为正时，这种新方法与使用括号表示法访问具有相同的行为。当给出负整数索引时，就会从数组的最后一项开始检索：
+const arr = [0,1,2,3,4]; console.log(arr[arr.length - 1]); // 4 console.log(arr.at(-1)); // 4 除了数组，字符串也可以使用at()方法进行索引：
+const str = &#34;hello world&#34;; console.log(str[str.length - 1]); // d console.log(str.at(-1)); // d </div><div class="post-footer">
+        <a href="/posts/es2022/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/es2022/">ES2022</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
                         <a href="/">1</a>

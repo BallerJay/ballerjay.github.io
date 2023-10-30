@@ -3,49 +3,16 @@
         <title>All Posts - BallerJay&#39;s Blog</title>
         <link>https://ballerjay.github.io/posts/</link>
         <description>All Posts | BallerJay&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 13 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>Node.js基础(3) - Express</title>
-    <link>https://ballerjay.github.io/posts/nodejs_3/</link>
-    <pubDate>Tue, 13 Jun 2023 00:00:00 &#43;0000</pubDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 30 Oct 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Typescript奇怪的符号</title>
+    <link>https://ballerjay.github.io/posts/typescript_strange_symbols/</link>
+    <pubDate>Mon, 30 Oct 2023 00:00:00 &#43;0000</pubDate>
     <author>Summer</author>
-    <guid>https://ballerjay.github.io/posts/nodejs_3/</guid>
-    <description><![CDATA[一、初识 express 1. 基本概念 官方给出的概念：Express 是基于 Node.js 平台，快速、开放、极简的 Web 开发框架。
-通俗的理解： Express 的作用和 Node.js 内置的 http 模块类似，是专门用来创建 Web 服务器的。
-Express 的本质：就是一个 npm 上的第三方包，提供了快速创建 Web 服务器的快捷方法。
-Express 的中文官网：中文官网
-2. 进一步理解 Express Q：不使用 Express 能否创建 Web 服务器
-A：能，使用 Node.js 提供的原生 http 模块即可。
-Q：既生瑜何生亮，有了 http 内置模块，为什么还有用 Express?
-A：http 内置模块用起来很复杂，开发效率低;Express 是基于内置的 http 模块进一步封装出来的，能够极大的提高开发效率.
-Q：http 内置模块与 Express 是什么关系?
-A：类似于浏览器中 Web API 和 jQuery 的关系。后者是基于前者进一步封装出来的。
-Q：Express 能做什么
-A：对于前端程序员来说，最常见的两种服务器，分别是：
-Web 网站服务器：专门对外提供 Web 网页资源的服务器 API 接口服务器：专门对外提供 API 接口的服务器 使用 Express，我们可以方便、快速的创建 Web 网站服务器或 API 接口的服务器。]]></description>
-</item>
-<item>
-    <title>Node.js基础(2) - 模块化</title>
-    <link>https://ballerjay.github.io/posts/nodejs_2/</link>
-    <pubDate>Mon, 12 Jun 2023 00:00:00 &#43;0000</pubDate>
-    <author>Summer</author>
-    <guid>https://ballerjay.github.io/posts/nodejs_2/</guid>
-    <description><![CDATA[1. 基本概念 模块化是指：在解决复杂问题的时候，自顶向下逐步将系统划分为若干模块的过程，对于整个系统来说，模块是可组合、可分解和可更换的单元。 在编程领域中，一般遵循固定的规则，把一个大文件拆分成独立并且相互依赖的小模块。 提高代码的复用性、可维护性、按需加载。 可以理解为解决复杂问题时的拆分思想。
-1.1 模块分类 根据模块来源不同，可以将 Node.js 分为三类：
-内置模块：Node.js 官方提供的 自定义模块：用户创建的每个 js 文件都是自定义模块 第三方模块：由第三方开发的模块，非官方提供的内置模块，也不是用户自己创建的自定义模块，使用前需要先下载。 1.2 模块加载 任何种类的模块都可以使用require()方法进行加载引用。
-// 内置模块 const fs = require(&#34;fs&#34;); // 自定义模块 const custome = require(&#34;./custome.js&#34;); // 第三方模块 const moment = require(&#34;moment&#34;); 注意：
-在使用 require() 方法加载其他模块时，会执行被加载模块的代码。 在使用 require() 方法用户自定义模块时，可以省略 .js 后缀名。 // custome.js console.log(&#34;custome is require&#34;); // test.js const custome = require(&#34;./custome.js&#34;); console.log(custome); // 输出： // custome is require // {} 1.3 模块作用域 与函数作用域相似，在自定义模块中的变量、方法等成员，只能在当前模块中被访问，这种模块级别的访问限制叫做模块作用域。 好处：防止了全局变量的污染问题。]]></description>
-</item>
-<item>
-    <title>Node.js基础(1) - 内置模块</title>
-    <link>https://ballerjay.github.io/posts/nodejs_1/</link>
-    <pubDate>Sun, 11 Jun 2023 00:00:00 &#43;0000</pubDate>
-    <author>Summer</author>
-    <guid>https://ballerjay.github.io/posts/nodejs_1/</guid>
-    <description><![CDATA[一、Node.js Node.js 是基于 Chrome V8 引擎的 Javascript 运行环境。可以快速构建网络服务及应用，是用 JavaScript 语言构建的服务平台，可用于后端建立服务器。
-二、Node.js 内置模块 1. fs 文件系统 Node 官方提供的用来操作文件的模块，它提供了一些一系列方法，满足用户对文件的操作需求。 使用之前需要先导入：const fs = require('fs')
-1.1 fs.readFile() 读取指定文件的内容
-fs.readFile(path [, option], callBack) 参数1：必选参数， 字符串， 表示文件路径 参数2：可选参数，表示以什么编码格式读取文件 参数3：必选参数，通过回调函数获得读取结果 # 这里 __dirname 表示的是当前路径 fs.readFile(__dirname + &#34;/1.txt&#34;, &#34;utf8&#34;, function (err, data) { if (err) { return console.log(&#34;读取文件失败&#34;, err.message); } console.log(&#34;读取文件成功&#34;, data); }); 1.2 fs.writeFile() 向指定文件中写入内容
-fs.writeFile(file, data [, option], callBack) 参数1：必选参数，表示文件路径 参数2：必选参数，写入文件的内容 参数3：可选参数，表示以什么编码格式写入文件 参数4：必选参数，通过回调函数获得写入结果 fs.writeFile(__dirname + &#39;/1.txt&#39;, &#39;aabbccdd&#39;, function(err,dataStr){ if(err) { console.]]></description>
+    <guid>https://ballerjay.github.io/posts/typescript_strange_symbols/</guid>
+    <description><![CDATA[1. ! 非空断言操作符 概念：在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符 ！可以用于断言操作对象是非 null 和非 undefined 类型。具体而言，x! 将从 x 值域中排除 null 和 undefined。
+使用场景：
+1.1 忽略 undefined 和 null 类型
+function myFunc(maybeString: string | undefined | null) { // Type &#39;string | null | undefined&#39; is not assignable to type &#39;string&#39;. // Type &#39;undefined&#39; is not assignable to type &#39;string&#39;. const onlyString: string = maybeString; // Error const ignoreUndefinedAndNull: string = maybeString!; // Ok } 1.2 调用函数时忽略 undefined 类型]]></description>
 </item>
 <item>
     <title>一次性整明白的 React Hook</title>

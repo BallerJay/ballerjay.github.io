@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Typescript奇怪的符号 - Tag - BallerJay&#39;s Blog</title>
+        <link>https://ballerjay.github.io/tags/typescript%E5%A5%87%E6%80%AA%E7%9A%84%E7%AC%A6%E5%8F%B7/</link>
+        <description>Typescript奇怪的符号 - Tag - BallerJay&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 30 Oct 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/typescript%E5%A5%87%E6%80%AA%E7%9A%84%E7%AC%A6%E5%8F%B7/" rel="self" type="application/rss+xml" /><item>
+    <title>Typescript奇怪的符号</title>
+    <link>https://ballerjay.github.io/posts/typescript_strange_symbols/</link>
+    <pubDate>Mon, 30 Oct 2023 00:00:00 &#43;0000</pubDate>
+    <author>Summer</author>
+    <guid>https://ballerjay.github.io/posts/typescript_strange_symbols/</guid>
+    <description><![CDATA[1. ! 非空断言操作符 概念：在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符 ！可以用于断言操作对象是非 null 和非 undefined 类型。具体而言，x! 将从 x 值域中排除 null 和 undefined。
+使用场景：
+1.1 忽略 undefined 和 null 类型
+function myFunc(maybeString: string | undefined | null) { // Type &#39;string | null | undefined&#39; is not assignable to type &#39;string&#39;. // Type &#39;undefined&#39; is not assignable to type &#39;string&#39;. const onlyString: string = maybeString; // Error const ignoreUndefinedAndNull: string = maybeString!; // Ok } 1.2 调用函数时忽略 undefined 类型]]></description>
+</item>
+</channel>
+</rss>

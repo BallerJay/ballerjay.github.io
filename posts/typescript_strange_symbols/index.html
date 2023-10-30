@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Typescript奇怪的符号 - BallerJay&#39;s Blog</title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Typescript奇怪的符号" />
+<meta property="og:description" content="1. ! 非空断言操作符 概念：在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符 ！可以用于断言操作对象是非 null 和非 undefined 类型。具体而言，x! 将从 x 值域中排除 null 和 undefined。
+使用场景：
+1.1 忽略 undefined 和 null 类型
+function myFunc(maybeString: string | undefined | null) { // Type &#39;string | null | undefined&#39; is not assignable to type &#39;string&#39;. // Type &#39;undefined&#39; is not assignable to type &#39;string&#39;. const onlyString: string = maybeString; // Error const ignoreUndefinedAndNull: string = maybeString!; // Ok } 1.2 调用函数时忽略 undefined 类型" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ballerjay.github.io/posts/typescript_strange_symbols/" /><meta property="og:image" content="https://ballerjay.github.io"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-10-30T00:00:00+00:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ballerjay.github.io"/>
+
+<meta name="twitter:title" content="Typescript奇怪的符号"/>
+<meta name="twitter:description" content="1. ! 非空断言操作符 概念：在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符 ！可以用于断言操作对象是非 null 和非 undefined 类型。具体而言，x! 将从 x 值域中排除 null 和 undefined。
+使用场景：
+1.1 忽略 undefined 和 null 类型
+function myFunc(maybeString: string | undefined | null) { // Type &#39;string | null | undefined&#39; is not assignable to type &#39;string&#39;. // Type &#39;undefined&#39; is not assignable to type &#39;string&#39;. const onlyString: string = maybeString; // Error const ignoreUndefinedAndNull: string = maybeString!; // Ok } 1.2 调用函数时忽略 undefined 类型"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/typescript_strange_symbols/" /><link rel="prev" href="https://ballerjay.github.io/posts/reacthooks/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Typescript奇怪的符号",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ballerjay.github.io\/posts\/typescript_strange_symbols\/"
+        },"genre": "posts","keywords": "Typescript奇怪的符号","wordcount":  589 ,
+        "url": "https:\/\/ballerjay.github.io\/posts\/typescript_strange_symbols\/","datePublished": "2023-10-30T00:00:00+00:00","dateModified": "2023-10-30T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Summer"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="fixed"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Typescript奇怪的符号</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/typescript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Typescript</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-30">2023-10-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;589 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1--非空断言操作符">1. ! 非空断言操作符</a></li>
+        <li><a href="#2--运算符">2. &amp; 运算符</a></li>
+        <li><a href="#3--分隔符">3. | 分隔符</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="1--非空断言操作符">1. ! 非空断言操作符</h3>
+<p>概念：在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符 ！可以用于断言操作对象是非 null 和非 undefined 类型。具体而言，x! 将从 x 值域中排除 null 和 undefined。</p>
+<p>使用场景：</p>
+<p>1.1 忽略 undefined 和 null 类型</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Typescript" data-lang="Typescript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">maybeString</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="o">|</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Type &#39;string | null | undefined&#39; is not assignable to type &#39;string&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Type &#39;undefined&#39; is not assignable to type &#39;string&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">onlyString</span>: <span class="kt">string</span> <span class="o">=</span> <span class="nx">maybeString</span><span class="p">;</span> <span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">ignoreUndefinedAndNull</span>: <span class="kt">string</span> <span class="o">=</span> <span class="nx">maybeString</span><span class="o">!</span><span class="p">;</span> <span class="c1">// Ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>1.2 调用函数时忽略 undefined 类型</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Typescript" data-lang="Typescript"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">NumGenerator</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">numGenerator</span>: <span class="kt">NumGenerator</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Object is possibly &#39;undefined&#39;.(2532)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Cannot invoke an object which is possibly &#39;undefined&#39;.(2722)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">num1</span> <span class="o">=</span> <span class="nx">numGenerator</span><span class="p">();</span> <span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">num2</span> <span class="o">=</span> <span class="nx">numGenerator</span><span class="o">!</span><span class="p">();</span> <span class="c1">//OK
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>注意：因为 ！非空断言操作符会从编译生成的 JavaScript 代码中移除，所以在实际使用的过程中，要特别注意。比如下面这个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">a</span>: <span class="kt">number</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">b</span>: <span class="kt">number</span> <span class="o">=</span> <span class="nx">a</span><span class="o">!</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+</span></span></code></pre></div><p>以上 TS 代码会编译生成 ES5 代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+</span></span></code></pre></div><p>虽然在 TS 代码中，我们使用了非空断言，使得 const b:number = a!；语句可以通过 Typescript 类型检查器的检查。但在生成的 ES5 代码中，！非空断言操作符被移除了，所以在浏览器中执行以上代码，在控制台会输出 undefined。</p>
+<h3 id="2--运算符">2. &amp; 运算符</h3>
+<p>在 Typescript 中交叉类型是将多个类型合并为一个类型。通过 &amp; 运算符可以将现有的多种类型叠加到一起成为一种类型，它包含了所需的所有类型的特性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PartialPointX</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span>: <span class="kt">number</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Point</span> <span class="o">=</span> <span class="nx">PartialPointX</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="nx">y</span>: <span class="kt">number</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">point</span>: <span class="kt">Point</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">x</span>: <span class="kt">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">y</span>: <span class="kt">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>2.1 同名基础类型属性的合并</p>
+<p>假设在合并多个类型的过程中，刚好出现某些类型存在相同的成员，但对应的类型又不一致，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">X</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">c</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">d</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Y</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">c</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">e</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">XY</span> <span class="o">=</span> <span class="nx">X</span> <span class="o">&amp;</span> <span class="nx">Y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">YX</span> <span class="o">=</span> <span class="nx">Y</span> <span class="o">&amp;</span> <span class="nx">X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">p</span>: <span class="kt">XY</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">q</span>: <span class="kt">YX</span><span class="p">;</span>
+</span></span></code></pre></div><p>在上面的代码中，接口 X 和接口 Y 都含有一个相同的成员 c，但它们的类型不一致。对于这种情况，此时 XY 类型或 YX 类型中成员 c 的类型是不是可以是 string 或 number 类型呢？看下面的例子：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-21-42@2x.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-21-42@2x.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-21-42@2x.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-21-42@2x.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-21-42@2x.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-21-42@2x.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-22-25@2x.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-22-25@2x.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-22-25@2x.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-22-25@2x.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-22-25@2x.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-22-25@2x.png" /></p>
+<p>我们可以看到混入后的成员 c 的类型为 string &amp; number，即成员 c 的类型既可以是 string 类型又可以是 number 类型。很明显这种类型是不存在的，所以混入后成员 c 的类型为 never。</p>
+<p>2.2 同名非基础类型属性的合并</p>
+<p>在上面示例中。刚好接口 X 和接口 Y 中内部成员 c 的类型都是基本数据类型，那么如果是非基本数据类型的话，又会是什么情形。看例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">D</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">d</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">E</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">e</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">F</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">f</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">x</span>: <span class="kt">D</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">x</span>: <span class="kt">E</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">C</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">x</span>: <span class="kt">F</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">ABC</span> <span class="o">=</span> <span class="nx">A</span> <span class="o">&amp;</span> <span class="nx">B</span> <span class="o">&amp;</span> <span class="nx">C</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">abc</span>: <span class="kt">ABC</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">x</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">d</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">e</span><span class="o">:</span> <span class="s1">&#39;semlinker&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f</span>: <span class="kt">666</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;abc:&#39;</span><span class="p">,</span> <span class="nx">abc</span><span class="p">);</span>
+</span></span></code></pre></div><p>控制台输出结果：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-47-59@2x.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-47-59@2x.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-47-59@2x.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-47-59@2x.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-47-59@2x.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2023/10/2023-10-30/CleanShot-2023-October-30-11-47-59@2x.png" /></p>
+<h3 id="3--分隔符">3. | 分隔符</h3>
+<p>在 Typescript 中联合类型（Union Types）表示取值可以为多种类型中的一种，联合类型使用 ｜ 分隔每个类型。联合类型通常与 null 或 undefined 一起使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">sayHello</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>以上案例中 name 的类型是 string | undefined 意味着可以将 string 或 undefined 的值传递给 sayHello 函数。</p>
+<p>此外，对于联合类型来说，你可能会遇到以下的用法:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">num</span>: <span class="kt">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">EventNames</span> <span class="o">=</span> <span class="s1">&#39;click&#39;</span> <span class="o">|</span> <span class="s1">&#39;scroll&#39;</span> <span class="o">|</span> <span class="s1">&#39;mousemove&#39;</span><span class="p">;</span>
+</span></span></code></pre></div><p>示例中的 1、2、&lsquo;click&rsquo; 被称为字面量类型，用来约束趋之只能是某几个值中的一个。</p>
+<p>3.1 类型保护</p>
+<p>当使用联合类型时，我们必须尽量把当前值的类型收窄为当前值的实际类型，而类型保护就是实现类型收窄的一种手段。</p>
+<p>类型保护是可执行运行时检查的一种表达式，用于确保该类型在一定的范围内。换句话说，类型保护可以保证一个字符串是一个字符串，尽管它的值也可以是一个数字。类型保护与特性检测并不是完全不同，其主要思想是尝试检测属性、方法或原型，以确定如何处理值。</p>
+<p>目前主要有四种的方式来实现类型保护：</p>
+<p>3.1.1 in 关键字</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Admin</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">privileges</span>: <span class="kt">string</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Employee</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">startData</span>: <span class="kt">Date</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">UnknownEmployee</span> <span class="o">=</span> <span class="nx">Employee</span> <span class="o">|</span> <span class="nx">Admin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">printEmployeeInformation</span><span class="p">(</span><span class="nx">emp</span>: <span class="kt">UnknownEmployee</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Name: &#39;</span> <span class="o">+</span> <span class="nx">emp</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;privileges&#39;</span> <span class="k">in</span> <span class="nx">emp</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Privileges: &#39;</span> <span class="o">+</span> <span class="nx">emp</span><span class="p">.</span><span class="nx">privileges</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;startDate&#39;</span> <span class="k">in</span> <span class="nx">emp</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Start Date: &#39;</span> <span class="o">+</span> <span class="nx">emp</span><span class="p">.</span><span class="nx">startDate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>3.1.2 typeof 关键字</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">padLeft</span><span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">padding</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">padding</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">padding</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">padding</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">padding</span> <span class="o">+</span> <span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`Expected string or number, got &#39;</span><span class="si">${</span><span class="nx">padding</span><span class="si">}</span><span class="sb">&#39;.`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>注意：typeof 类型保护只支持两种形式：typeof v === typename 和 typeof v !== typename,typename 必须是&rsquo;number&rsquo;、&lsquo;string&rsquo;、&lsquo;boolean&rsquo;或&rsquo;symbol&rsquo;。但是 TypeScript 并不会阻止你与其它字符串比较，语言不会把那些表达式识别为类型保护。</p>
+<p>3.1.3 instanceof 关键字</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Padder</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">getPaddingString</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">SpaceRepeatingPadder</span> <span class="kr">implements</span> <span class="nx">Padder</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">numSpaces</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">getPaddingString() {</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">Array</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">numSpaces</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">StringPadder</span> <span class="kr">implements</span> <span class="nx">Padder</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">getPaddingString() {</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">padder</span>: <span class="kt">Padder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SpaceRepeatingPadder</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">padder</span> <span class="k">instanceof</span> <span class="nx">SpaceRepeatingPadder</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// padder的类型收窄为 &#39;SpaceRepeatingPadder&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>3.1.4 自定义类型保护的类型谓词（type predicate）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">isNumber</span><span class="p">(</span><span class="nx">x</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">x</span> <span class="k">is</span> <span class="kt">number</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">isString</span><span class="p">(</span><span class="nx">x</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">x</span> <span class="k">is</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-10-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/typescript_strange_symbols/" data-title="Typescript奇怪的符号" data-hashtags="Typescript奇怪的符号"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/typescript_strange_symbols/" data-hashtag="Typescript奇怪的符号"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/typescript_strange_symbols/" data-title="Typescript奇怪的符号"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/typescript_strange_symbols/" data-title="Typescript奇怪的符号"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/typescript_strange_symbols/" data-title="Typescript奇怪的符号"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/typescript%E5%A5%87%E6%80%AA%E7%9A%84%E7%AC%A6%E5%8F%B7/">Typescript奇怪的符号</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/reacthooks/" class="prev" rel="prev" title="一次性整明白的 React Hook"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>一次性整明白的 React Hook</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Summer</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
