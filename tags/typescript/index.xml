@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>TypeScript - Category - BallerJay&#39;s Blog</title>
-        <link>https://ballerjay.github.io/categories/typescript/</link>
-        <description>TypeScript - Category - BallerJay&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 31 Oct 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/categories/typescript/" rel="self" type="application/rss+xml" /><item>
+        <title>TypeScript - Tag - BallerJay&#39;s Blog</title>
+        <link>https://ballerjay.github.io/tags/typescript/</link>
+        <description>TypeScript - Tag - BallerJay&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 31 Oct 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ballerjay.github.io/tags/typescript/" rel="self" type="application/rss+xml" /><item>
     <title>TypeScript 使用技巧（一）</title>
     <link>https://ballerjay.github.io/posts/how_use_typescript_1/</link>
     <pubDate>Thu, 31 Oct 2024 00:00:00 &#43;0000</pubDate>
@@ -12,17 +12,6 @@
     <description><![CDATA[1. 枚举类型 1.1 获取枚举（enum）的键（key） enum MyEnum { Key1 = &#39;Value1&#39;, Key2 = &#39;Value2&#39;, Key3 = &#39;Value3&#39;, } type MyEnumKeys = keyof typeof MyEnum; // MyEnumKeys 的类型为 &#34;Key1&#34; | &#34;Key2&#34; | &#34;Key3&#34; 1.2 获取枚举（enum）的值（value） enum MyEnum { Key1 = &#39;Value1&#39;, Key2 = &#39;Value2&#39;, Key3 = &#39;Value3&#39;, } type MyEnumValues = MyEnum[keyof typeof MyEnum]; // MyEnumValues 的类型为 &#34;Value1&#34; | &#34;Value2&#34; | &#34;Value3&#34; 2.新特性 satisfies satisfies 运算符提供了一种为值添加类型注解而不丢失值推理的方法。
 2.1 使用satisfies的强类型 URLSearchParams satisfies非常适合强类型化函数，这些函数通常使用更宽松的类型。
 在使用 URLSearchParams 时，它的参数通常是 Record&lt;string, string | string[]&gt; 。这是一种非常松散的类型，并不强制执行任何特性的键。通常情况下，你需要创建一些搜索参数并将它们传递给 URL。因此，这种松散的类型最终会变得相当危险。]]></description>
-</item>
-<item>
-    <title>Typescript奇怪的符号</title>
-    <link>https://ballerjay.github.io/posts/typescript_strange_symbols/</link>
-    <pubDate>Mon, 30 Oct 2023 00:00:00 &#43;0000</pubDate>
-    <author>Summer</author>
-    <guid>https://ballerjay.github.io/posts/typescript_strange_symbols/</guid>
-    <description><![CDATA[1. ! 非空断言操作符 概念：在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符 ！可以用于断言操作对象是非 null 和非 undefined 类型。具体而言，x! 将从 x 值域中排除 null 和 undefined。
-使用场景：
-1.1 忽略 undefined 和 null 类型
-function myFunc(maybeString: string | undefined | null) { // Type &#39;string | null | undefined&#39; is not assignable to type &#39;string&#39;. // Type &#39;undefined&#39; is not assignable to type &#39;string&#39;. const onlyString: string = maybeString; // Error const ignoreUndefinedAndNull: string = maybeString!; // Ok } 1.2 调用函数时忽略 undefined 类型]]></description>
 </item>
 </channel>
 </rss>

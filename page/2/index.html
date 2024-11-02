@@ -80,6 +80,16 @@
         alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
         title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/BallerJay" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw" aria-hidden="true"></i></a><a href="https://t.me/baller_jay" title="Telegram" target="_blank" rel="noopener noreffer me"><i class="fab fa-telegram-plane fa-fw" aria-hidden="true"></i></a><a href="mailto:i@ballerjay.me" title="Email" rel=" me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/es2022/">ES2022 都有哪些新特性</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-05-25">2022-05-25</time></span>&nbsp;<span class="post-category">included in <a href="/categories/javascript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaScript</a></span></div><div class="content">ES2022 有哪些新特性！ 1. Object.hasOwn() 在ES2022之前，可以使用Object.prototype.hasOwnProperty() 来检查一个属性是否属于对象。
+Object.hasOwn特性是一种更简洁、更可靠的检查属性是否直接设置在对象上的方法:
+const example = { property: &#39;123&#39; } console.log(Object.prototype.hasOwnProperty.call(example,&#39;property&#39;)); console.log(Object.hasOwn(example,&#39;property&#39;)) // output: true true 该特性的浏览器支持如下所示：
+2. at() at() 是一个数组方法，用于通过给定索引来获取数组元素。当给定索引为正时，这种新方法与使用括号表示法访问具有相同的行为。当给出负整数索引时，就会从数组的最后一项开始检索：
+const arr = [0,1,2,3,4]; console.log(arr[arr.length - 1]); // 4 console.log(arr.at(-1)); // 4 除了数组，字符串也可以使用at()方法进行索引：
+const str = &#34;hello world&#34;; console.log(str[str.length - 1]); // d console.log(str.at(-1)); // d </div><div class="post-footer">
+        <a href="/posts/es2022/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/es2022/">ES2022</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/longestcommonprefix/">最长公共前缀</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-publish">published on <time datetime="2022-05-19">2022-05-19</time></span>&nbsp;<span class="post-category">included in <a href="/categories/leetcode/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>leetCode</a></span></div><div class="content">leetcode-14-最长公共前缀 题目地址
 题目描述 编写一个函数来查找字符串数组中过的最长公共前缀。
@@ -103,7 +113,7 @@ let curIndex = 0; 记录当前对比字符的下标 let curStr = &ldquo;&rdquo;;
                 </li></ul></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Summer</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Summer</a></span></div>
         </div>
     </footer></div>
 

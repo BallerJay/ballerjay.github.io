@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>TypeScript 使用技巧（一） - BallerJay&#39;s Blog</title><meta name="Description" content="枚举类型、新特性 satisfies"><meta property="og:title" content="TypeScript 使用技巧（一）" />
+<meta property="og:description" content="枚举类型、新特性 satisfies" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ballerjay.github.io/posts/how_use_typescript_1/" /><meta property="og:image" content="https://ballerjay.github.io"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-10-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-10-31T00:00:00+00:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ballerjay.github.io"/>
+
+<meta name="twitter:title" content="TypeScript 使用技巧（一）"/>
+<meta name="twitter:description" content="枚举类型、新特性 satisfies"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ballerjay.github.io/posts/how_use_typescript_1/" /><link rel="prev" href="https://ballerjay.github.io/posts/typescript_strange_symbols/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "TypeScript 使用技巧（一）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ballerjay.github.io\/posts\/how_use_typescript_1\/"
+        },"genre": "posts","keywords": "TypeScript","wordcount":  358 ,
+        "url": "https:\/\/ballerjay.github.io\/posts\/how_use_typescript_1\/","datePublished": "2024-10-31T00:00:00+00:00","dateModified": "2024-10-31T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Summer"
+            },"description": "枚举类型、新特性 satisfies"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="fixed"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="BallerJay&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        data-srcset="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 1.5x, https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png 2x"
+        data-sizes="auto"
+        alt="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png"
+        title="https://oss-images-1310293673.cos.ap-chongqing.myqcloud.com/static/2022/12/2022-12-09/WechatIMG146.png" />Everyday Get Better</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">TypeScript 使用技巧（一）</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Summer</a></span>&nbsp;<span class="post-category">included in <a href="/categories/typescript/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>TypeScript</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-10-31">2024-10-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;358 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-枚举类型">1. 枚举类型</a>
+      <ul>
+        <li><a href="#11-获取枚举enum的键key">1.1 获取枚举（enum）的键（key）</a></li>
+        <li><a href="#12-获取枚举enum的值value">1.2 获取枚举（enum）的值（value）</a></li>
+      </ul>
+    </li>
+    <li><a href="#2新特性-satisfies">2.新特性 satisfies</a>
+      <ul>
+        <li><a href="#21-使用satisfies的强类型-urlsearchparams">2.1 使用<code>satisfies</code>的强类型 URLSearchParams</a></li>
+        <li><a href="#22-带-satisfies-的强类型-post-请求">2.2 带 satisfies 的强类型 POST 请求</a></li>
+        <li><a href="#23-使用-satisfies-而不是-as-const-来推断元组">2.3 使用 satisfies 而不是 as const 来推断元组</a></li>
+        <li><a href="#24-使用-satisfies-强制-as-const-对象成为某种类型">2.4 使用 <code>satisfies</code> 强制 as const 对象成为某种类型。</a></li>
+        <li><a href="#25-使用-satisfies-来强制-as-const-数组成为特定类型">2.5 使用 <code>satisfies</code> 来强制 <code>as const</code> 数组成为特定类型。</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-枚举类型">1. 枚举类型</h2>
+<h3 id="11-获取枚举enum的键key">1.1 获取枚举（enum）的键（key）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">MyEnum</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Key1</span> <span class="o">=</span> <span class="s1">&#39;Value1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Key2</span> <span class="o">=</span> <span class="s1">&#39;Value2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Key3</span> <span class="o">=</span> <span class="s1">&#39;Value3&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">MyEnumKeys</span> <span class="o">=</span> <span class="k">keyof</span> <span class="k">typeof</span> <span class="nx">MyEnum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// MyEnumKeys 的类型为 &#34;Key1&#34; | &#34;Key2&#34; | &#34;Key3&#34;
+</span></span></span></code></pre></div><h3 id="12-获取枚举enum的值value">1.2 获取枚举（enum）的值（value）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">enum</span> <span class="nx">MyEnum</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Key1</span> <span class="o">=</span> <span class="s1">&#39;Value1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Key2</span> <span class="o">=</span> <span class="s1">&#39;Value2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Key3</span> <span class="o">=</span> <span class="s1">&#39;Value3&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">MyEnumValues</span> <span class="o">=</span> <span class="nx">MyEnum</span><span class="p">[</span><span class="k">keyof</span> <span class="k">typeof</span> <span class="nx">MyEnum</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// MyEnumValues 的类型为 &#34;Value1&#34; | &#34;Value2&#34; | &#34;Value3&#34;
+</span></span></span></code></pre></div><h2 id="2新特性-satisfies">2.新特性 satisfies</h2>
+<p><code>satisfies</code> 运算符提供了一种为值添加类型注解而不丢失值推理的方法。</p>
+<h3 id="21-使用satisfies的强类型-urlsearchparams">2.1 使用<code>satisfies</code>的强类型 URLSearchParams</h3>
+<p><code>satisfies</code>非常适合强类型化函数，这些函数通常使用更宽松的类型。</p>
+<p>在使用 <code>URLSearchParams</code> 时，它的参数通常是 <code>Record&lt;string, string | string[]&gt;</code> 。这是一种非常松散的类型，并不强制执行任何特性的键。通常情况下，你需要创建一些搜索参数并将它们传递给 URL。因此，这种松散的类型最终会变得相当危险。</p>
+<p>这时，<code>satisfies</code> 就起作用了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">URLParams</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">body</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URLSearchParams</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="nx">satisfies</span> <span class="nx">URLParams</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ❌ 类型 &#34;{ title: string; }&#34; 中缺少属性 &#34;body&#34;，但类型 &#34;URLParams&#34; 中需要该属性。
+</span></span></span></code></pre></div><h3 id="22-带-satisfies-的强类型-post-请求">2.2 带 satisfies 的强类型 POST 请求</h3>
+<p>在发出 POST 请求时，向服务器发送正确的数据结构非常重要。服务器会期望请求正文有特定的格式，但使用 JSON.stringify 将其转化为 JSON 的过程会消除任何强类型。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">Post</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">content</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/posts&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">body</span>: <span class="kt">JSON.stringify</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;New Post&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;Lorem ipsum.&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="nx">satisfies</span> <span class="nx">Post</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>我们可以用 Post 类型注释请求正文，确保标题和内容属性存在且类型正确。</p>
+<h3 id="23-使用-satisfies-而不是-as-const-来推断元组">2.3 使用 satisfies 而不是 as const 来推断元组</h3>
+<p>通常，你会希望在 TypeScript 中声明一个元素数组，但将其推断为元组而非数组。你可能会使用 <code>as const</code> 断言来推断元组类型，而不是数组类型。然后，使用 <code>satisfies</code> 操作符，你可以在不使用 <code>as const</code> 的情况下获得相同的结果。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">MoreThanOneMember</span> <span class="o">=</span> <span class="p">[</span><span class="kt">any</span><span class="p">,</span> <span class="p">...</span><span class="kt">any</span><span class="p">[]];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">maybeExists</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">tuple</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="nx">satisfies</span> <span class="nx">MoreThanOneMember</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ❌ 长度为 &#34;3&#34; 的元组类型 &#34;[number, number, number]&#34; 在索引 &#34;3&#34; 处没有元素。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">doesNotExist</span> <span class="o">=</span> <span class="nx">tuple</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span></span></code></pre></div><p>在上面的代码中，我们以两种不同的方式声明数组。如果我们不使用 <code>satisfies</code>对其进行注解，它就会被推断为 <code>number[]</code>类型。这意味着当我们尝试访问数组中不存在的元素时，TypeScript 不会给出错误信息；他只是将其推断为 <code>number | undefined</code>。</p>
+<p>然而，当我们使用 <code>satisfies</code> 时，TypeScript 会正确推断出数组类型为 <code>MoreThanOneMember</code>,一个包含三个元素的元组，并给出错误信息。</p>
+<h3 id="24-使用-satisfies-强制-as-const-对象成为某种类型">2.4 使用 <code>satisfies</code> 强制 as const 对象成为某种类型。</h3>
+<p>使用 <code>as const</code> 时，我们可以指定将对象视为具有字面类型的不可变值。但是，这并不能强制对象具有任何特定的形状或属性。要强制 <code>as const</code> 对象具有特定的形状，我们可以使用 <code>satisfies</code> 操作符。</p>
+<p>在下面的示例中，我们有一个 <code>RouteObject</code> 类型，它代表了一个路由集合。每个路由都有一个字符串类型的 url 属性和一个可选的 <code>searchParams</code> 属性。我们要确保路由对象满足 <code>RouteObject</code> 类型。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">RouteObject</span> <span class="o">=</span> <span class="nx">Record</span><span class="o">&lt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">searchParams</span>: <span class="kt">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="err">,</span> <span class="na">string</span> <span class="err">|</span> <span class="na">string</span><span class="err">[]</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">route</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">home</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">searchParams</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ❌ 类型 &#34;{ readonly url: &#34;/about&#34;; }&#34; 中缺少属性 &#34;searchParams&#34;，但类型 &#34;{ url: string; searchParams: Record&lt;string, string | string[]&gt;; }&#34; 中需要该属性。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">about</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/about&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">as</span> <span class="kr">const</span> <span class="nx">satisfies</span> <span class="nx">RouteObject</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="25-使用-satisfies-来强制-as-const-数组成为特定类型">2.5 使用 <code>satisfies</code> 来强制 <code>as const</code> 数组成为特定类型。</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">NavElement</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">url?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">children?</span>: <span class="kt">readonly</span> <span class="nx">NavElement</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">nav</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;About&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Team&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/about/team&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span> <span class="kr">as</span> <span class="kr">const</span> <span class="nx">satisfies</span> <span class="kr">readonly</span> <span class="nx">NavElement</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">nav</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">children</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ❌ 类型“{ readonly title: &#34;Home&#34;; readonly url: &#34;/&#34;; }”上不存在属性“children”。
+</span></span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-10-31</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ballerjay.github.io/posts/how_use_typescript_1/" data-title="TypeScript 使用技巧（一）" data-hashtags="TypeScript"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ballerjay.github.io/posts/how_use_typescript_1/" data-hashtag="TypeScript"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ballerjay.github.io/posts/how_use_typescript_1/" data-title="TypeScript 使用技巧（一）"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ballerjay.github.io/posts/how_use_typescript_1/" data-title="TypeScript 使用技巧（一）"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ballerjay.github.io/posts/how_use_typescript_1/" data-title="TypeScript 使用技巧（一）"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/typescript/">TypeScript</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/typescript_strange_symbols/" class="prev" rel="prev" title="Typescript奇怪的符号"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Typescript奇怪的符号</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Summer</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
